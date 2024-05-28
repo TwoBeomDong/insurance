@@ -5,23 +5,23 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 
 import client.Client;
-import controll.InsuranceProductList;
-import insurance.Insurance;
+import controller.InsuranceProductController;
 import server.ServerIF;
+import view.Insurance;
 
 public class ApprovalVisitor implements FreshInsuranceVisitor {
 
-    private boolean approveBasicInsuranceInfo(int insuranceId, InsuranceProductList insuranceList, BufferedReader objReader) throws IOException {
+    private boolean approveBasicInsuranceInfo(int insuranceId, InsuranceProductController insuranceProductController, BufferedReader objReader) throws IOException {
         
-    	String basicInfo = insuranceList.getFreshInsurance(insuranceId).getBasicInsuranceInfo().toString();
+    	String basicInfo = insuranceProductController.getFreshInsurance(insuranceId).getBasicInsuranceInfo().toString();
         System.out.println(basicInfo);
         System.out.println("기본보험 정보를 승인하시겠습니까? (yes/no)");
         String approvalInput;
         while(true) {
         	approvalInput = objReader.readLine();
             if ("yes".equalsIgnoreCase(approvalInput)) {
-            	insuranceList.getFreshInsurance(insuranceId).getBasicInsuranceInfo().approval();
-                String response = server.approvalBasicInsuranceInfo(insuranceId, true).getMessage();
+            	insuranceProductController.getFreshInsurance(insuranceId).getBasicInsuranceInfo().approval();
+                boolean response = server.approvalBasicInsuranceInfo(insuranceId, true).getMessage();
                 System.out.println(response);
                 return true;
             }else if("no".equalsIgnoreCase(approvalInput)) {
@@ -34,7 +34,7 @@ public class ApprovalVisitor implements FreshInsuranceVisitor {
         }
     }
 
-    private boolean approveMemberPaperForm(int insuranceId, InsuranceProductList insuranceList, BufferedReader objReader) throws IOException {
+    private boolean approveMemberPaperForm(int insuranceId, InsuranceProductController insuranceList, BufferedReader objReader) throws IOException {
         String paperFormInfo = server.getMemberPaperForm(insuranceId).getMessage();
         System.out.println(paperFormInfo);
         System.out.println("기초서류양식을 승인하시겠습니까? (yes/no)");
@@ -55,7 +55,7 @@ public class ApprovalVisitor implements FreshInsuranceVisitor {
         }
     }
 
-    private void decideStandardRate(int insuranceId, InsuranceProductList insuranceList, BufferedReader objReader) throws IOException {
+    private void decideStandardRate(int insuranceId, InsuranceProductController insuranceList, BufferedReader objReader) throws IOException {
         System.out.print("보험 요율을 입력해 주십시오:");
         float rate;
 		while(true) {
@@ -70,7 +70,7 @@ public class ApprovalVisitor implements FreshInsuranceVisitor {
         System.out.println(response);
     }
 
-    private void setProductApprovalPaper(int insuranceId, InsuranceProductList insuranceList, BufferedReader objReader) throws IOException {
+    private void setProductApprovalPaper(int insuranceId, InsuranceProductController insuranceList, BufferedReader objReader) throws IOException {
         System.out.println("상품 인가 품의서 정보를 입력해 주십시오:");
         String info = objReader.readLine();
         String response = server.setProductApprovalPaper(insuranceId, info).getMessage();
@@ -78,7 +78,7 @@ public class ApprovalVisitor implements FreshInsuranceVisitor {
     }
 
 	@Override
-	public void visitInsuranceApprovalProcess(InsuranceProductList insuranceList, BufferedReader objReader) throws IOException {
+	public void visitInsuranceApprovalProcess(InsuranceProductController insuranceList, BufferedReader objReader) throws IOException {
 		// 신규보험 목록 출력
 		String insuranceString  = insuranceList.getFreshInsuranceString();
 		if(insuranceString.equals("")) {
