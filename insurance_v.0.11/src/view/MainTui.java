@@ -127,7 +127,8 @@ public class MainTui {
 				System.out.println("메뉴를 다시 보고싶다면 menu를 입력하세요.");
 				failNum = 0;
 			}
-			System.out.print("menu를 선택하세요. (종료하려면 x를 입력합니다.): ");
+			System.out.print("menu를 선택하세요. (종료하려면 x를 입력합니다.): \n");
+			printMenu();
 			sChoice = objReader.readLine().trim();
 		}
 	}
