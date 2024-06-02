@@ -31,6 +31,18 @@ public class ContractInsurance {
 	public ContractInsurance(){
 
 	}
+	
+	public ContractInsurance(LocalDate contractDate, Customer customer, LocalDate expireDate,
+			InsuranceProduct insuranceProduct, String paymentBankAccount, PaymentType paymentType) {
+		this.contractDate = contractDate;
+		this.customer = customer;
+		this.expireDate = expireDate;
+		this.insuranceProduct = insuranceProduct;
+		this.paymentBankAccount = paymentBankAccount;
+		this.paymentType = paymentType;
+	}
+
+
 
 	public LocalDate getContractDate() {
 		return contractDate;
