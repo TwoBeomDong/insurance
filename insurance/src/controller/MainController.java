@@ -11,9 +11,11 @@ import model.insurance.info.BasicInsuranceInfo;
 import model.insurance.info.InsuranceType;
 import model.insurance.info.TermPeriod;
 import model.support.RequestSupportList;
+import model.terminate.TerminateInsuranceList;
 import model.user.Customer;
 import model.user.CustomerList;
 import model.user.EmployeeList;
+import terminator.Terminator;
 import view.MainTui;
 
 public class MainController {
@@ -30,6 +32,8 @@ public class MainController {
 	private EmployeeList employeeList;
 	private InsuranceProductList insuranceProductList;
 	private RequestSupportList requestSupportList;
+	private TerminateInsuranceList terminateInsuranceList; // 추가
+	
 
 	// ----------------------view--------------------
 	private MainTui mainTui;
@@ -40,6 +44,7 @@ public class MainController {
 	private C_Employee employeeController;
 	private C_InsuranceProduct insuranceProductController;
 	private C_Support requestSupportController;
+	private Terminator terminator; // 추가
 
 	public MainController() {
 
@@ -65,6 +70,8 @@ public class MainController {
 		this.employeeList = new EmployeeList();
 		this.insuranceProductList = new InsuranceProductList();
 		
+		this.terminateInsuranceList = new TerminateInsuranceList(); // 추가
+		this.terminator = new Terminator(contractInsuranceList, terminateInsuranceList); // 추가
 		
 		this.requestSupportList = new RequestSupportList();
 
@@ -119,4 +126,7 @@ public class MainController {
 		this.requestSupportController = requestSupportController;
 	}
 
+	public TerminateInsuranceList getTerminateInsuranceList() {
+		return this.terminateInsuranceList;
+	}
 }
