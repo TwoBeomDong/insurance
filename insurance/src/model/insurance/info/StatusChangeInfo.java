@@ -3,15 +3,17 @@ package model.insurance.info;
 import java.time.LocalDate;
 
 import model.user.Employee;
+import model.user.User;
 
 
 public class StatusChangeInfo {
 	private InsuranceStatus insuranceStatus;
-	private Employee personInCharge;
-	private LocalDate changeDate;
+	private User personInCharge;
+	private final LocalDate changeDate;
+	private String changeReason;
 
 	public StatusChangeInfo(){
-
+		this.changeDate = LocalDate.now();
 	}
 
 	public InsuranceStatus getInsuranceStatus() {
@@ -22,11 +24,11 @@ public class StatusChangeInfo {
 		this.insuranceStatus = insuranceStatus;
 	}
 
-	public Employee getPersonInCharge() {
+	public User getPersonInCharge() {
 		return personInCharge;
 	}
 
-	public void setPersonInCharge(Employee personInCharge) {
+	public void setPersonInCharge(User personInCharge) {
 		this.personInCharge = personInCharge;
 	}
 
@@ -34,12 +36,13 @@ public class StatusChangeInfo {
 		return changeDate;
 	}
 
-	public void setChangeDate(LocalDate changeDate) {
-		this.changeDate = changeDate;
+	public String getChangeReason() {
+		return changeReason;
 	}
-	
-	public void finalize() throws Throwable {
-		
+
+	public void setChangeReason(String changeReason) {
+		this.changeReason = changeReason;
 	}
+
 
 }

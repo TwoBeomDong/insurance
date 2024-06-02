@@ -4,9 +4,12 @@ import java.util.LinkedHashMap;
 import java.util.Vector;
 
 import model.insurance.info.BasicInsuranceInfo;
+import model.insurance.info.InsuranceStatus;
 import model.insurance.info.InsuranceType;
 import model.insurance.info.MemberPaperForm;
+import model.insurance.info.StatusChangeInfo;
 import model.insurance.info.TermPeriod;
+import model.user.Employee;
 
 public class InsuranceProductList {
 	private Vector<InsuranceProduct> freshInsuranceProductList;
@@ -41,9 +44,23 @@ public class InsuranceProductList {
 		}
 		return null;
 	}
-	public boolean addFreshInsuranceProduct(BasicInsuranceInfo basicInsuranceInfo, MemberPaperForm memberPaperForm) {
-		InsuranceProduct freshInsurance = new InsuranceProduct(basicInsuranceInfo, memberPaperForm, this.freshInsuranceProductList.size()+1);
+	public boolean addFreshInsuranceProduct(BasicInsuranceInfo basicInsuranceInfo, MemberPaperForm memberPaperForm, Employee employee) {
+		InsuranceProduct freshInsurance = new InsuranceProduct(
+				basicInsuranceInfo, memberPaperForm, this.freshInsuranceProductList.size()+this.RegularInsuranceProductList.size()+1);
+		StatusChangeInfo status = new StatusChangeInfo();
+		status.setInsuranceStatus(InsuranceStatus.adminApprovalWait);
+		status.setPersonInCharge(employee);
+		freshInsurance.changeStatus(status);
 		return this.freshInsuranceProductList.add(freshInsurance);
+	}
+	public boolean transferToRegularInsurance(int insuranceId) {
+		InsuranceProduct insurance = this.getFreshInsurance(insuranceId);
+		if(insurance != null) {
+			this.freshInsuranceProductList.remove(this.getFreshInsurance(insuranceId));
+			this.RegularInsuranceProductList.add(insurance);
+			return true;
+		}
+		return false;
 	}
 	
 	// ------------------------------- 기존 보험 처리부 -------------------------------------

@@ -7,12 +7,9 @@ import model.insurance.info.InsuranceStatus;
 import model.insurance.info.MemberPaperForm;
 import model.insurance.info.ProductApprovalPaper;
 import model.insurance.info.StatusChangeInfo;
+import model.insurance.info.TrainMatter;
+import model.insurance.info.TrainPlan;
 
-/**
- * @author dongyeonkim
- * @version 1.0
- * @created 14-5-2024 ���� 6:43:15
- */
 public class InsuranceProduct {
 	private class StandardRate {
 		// 요율을 final로 선언하기 위해 구조체 클래스를 만듦.
@@ -29,6 +26,9 @@ public class InsuranceProduct {
 	private ProductApprovalPaper productApprovalPaper;
 	private int insuranceID;
 	private StandardRate standardRate;
+	private TrainMatter trainMatter;
+	private TrainPlan trainPlan;
+	private String courseBookLink;
 
 	public InsuranceProduct(BasicInsuranceInfo basicInsuranceInfo, MemberPaperForm memberPaperForm, int insuranceID){
 		this.basicInsuranceInfo = basicInsuranceInfo;
@@ -92,5 +92,29 @@ public class InsuranceProduct {
 	
 	public void finalize() throws Throwable {
 
+	}
+
+	public TrainMatter getTrainMatter() {
+		return trainMatter;
+	}
+
+	public void setTrainMatter(TrainMatter trainMatter) {
+		this.trainMatter = trainMatter;
+	}
+
+	public TrainPlan getTrainPlan() {
+		return trainPlan;
+	}
+
+	public void setTrainPlan(TrainPlan trainPlan) {
+		this.trainPlan = trainPlan;
+	}
+
+	public String getCourseBookLink() {
+		return courseBookLink;
+	}
+
+	public void setCourseBookLink(String courseBookLink) {
+		this.courseBookLink = courseBookLink;
 	}
 }

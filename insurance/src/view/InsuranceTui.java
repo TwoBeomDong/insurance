@@ -7,7 +7,11 @@ import java.util.Map.Entry;
 import java.util.Vector;
 
 import controller.MainController;
-import freshInsuranceVisitor.ApprovalVisitor;
+import freshInsuranceVisitor.AdminApprovalVisitor;
+import freshInsuranceVisitor.FreshInsuranceVisitor;
+import freshInsuranceVisitor.TrainApprovalVisitor;
+import freshInsuranceVisitor.TrainFinishVisitor;
+import freshInsuranceVisitor.TrainRequestVisitor;
 import model.contract.ContractInsurance.PaymentType;
 import model.insurance.InsuranceProduct;
 import model.insurance.info.InsuranceType;
@@ -68,13 +72,13 @@ public class InsuranceTui {
 
 	public void printAddNewInsurance(BufferedReader objReader, MainController mainController) throws IOException {
 
-		System.out.println("-----신규 보험 등록-----");
+		System.out.println("-----기본 보험정보 입력-----");
 		System.out.print("보험 이름: ");
 		String insuranceName = objReader.readLine().trim();
 		// ----- 보험 타입 -----
 		System.out.println("보험 타입을 선택해 주십시오");
 		for (InsuranceType type : InsuranceType.values()) {
-			System.out.println((type.ordinal() + 1) + ". " + type.name());
+			System.out.println((type.ordinal() + 1) + ". " + type.getName());
 		}
 		System.out.print("입력 (예: 1, 2, 3): ");
 		int typeInput = getInputInteger(objReader, InsuranceType.values().length) - 1;
@@ -86,9 +90,9 @@ public class InsuranceTui {
 		// ---------------
 
 		// ----- 보험 기간 -----
-		System.out.println("보험 기간을 선택해 주십시오");
+		System.out.println("보험 기간 단위를 선택해 주십시오");
 		for (TermPeriod termPeriod : TermPeriod.values()) {
-			System.out.println((termPeriod.ordinal() + 1) + ". " + termPeriod.name());
+			System.out.println((termPeriod.ordinal() + 1) + ". " + termPeriod.getName());
 		}
 		System.out.print("입력 (예: 1, 2, 3): ");
 		int termInput = getInputInteger(objReader, TermPeriod.values().length) - 1;
@@ -99,6 +103,7 @@ public class InsuranceTui {
 		// ---------------
 
 		// ----- 기초서류양식 -----
+		System.out.println("-----가입자 기초서류양식 입력-----");
 		LinkedHashMap<String, Object> BasicPaperList = new LinkedHashMap<>();
 		String input;
 
@@ -119,10 +124,10 @@ public class InsuranceTui {
 		}
 
 		if (BasicPaperList.isEmpty()) {
-			System.out.println("맵이 비어 있습니다.");
+			System.out.println("기초서류를 입력하지 않았습니다.");
 		} else {
 			System.out.println("입력된 서류이름-타입 쌍:");
-			BasicPaperList.forEach((key, value) -> System.out.println(key + ": " + value));
+			BasicPaperList.forEach((key, value) -> System.out.println(key + ": " + (value == String.class ? "문자열 타입" : "논리 타입")));
 		}
 		// ---------------
 		System.out.println();
@@ -133,11 +138,11 @@ public class InsuranceTui {
 		BasicPaperList.forEach((key, value) -> System.out.println(key + ": " + (value == String.class ? "문자열 타입" : "논리 타입")));
 		System.out.println();
 
-		if (mainController.getInsuranceProductController().addNewInsurance(insuranceName, selectedType,
-				selectedTerm, BasicPaperList)) {
-			System.out.println("새 보험 등록 완료");
+		if (mainController.getInsuranceProductController().addFreshInsuranceProduct(insuranceName, selectedType,
+				selectedTerm, BasicPaperList, null)) {
+			System.out.println("보험 등록이 정상적으로 요청되었습니다. 관리자 승인 이후 금융감독원으로 인계됩니다.");
 		} else {
-			System.out.println("새 보험 등록 실패");
+			System.out.println("보험 등록 요청이 거부되었습니다. 입력 서류를 재검토하거나 잠시 후 시도해주세요.");
 		}
 
 	}
@@ -150,11 +155,71 @@ public class InsuranceTui {
 		/*
 		 * 신규 보험 승인부
 		 * 
-		 * visitor pattern 사용으로 해당 메소드에서는 visitor를 호출만 한다. vistitor 는 View의 일종으로 사용.
+		 * 사용자가 선택한 메뉴에 대한 일을 처리할 비지터 호출
 		 */
-		ApprovalVisitor visitor = new ApprovalVisitor();
-		visitor.visitInsuranceApprovalProcess(this.mainController.getInsuranceProductController(), objReader);
+		// 신규보험 목록 출력
+		String insuranceString  = this.mainController.getInsuranceProductController().getFreshInsuranceString();
+		if(insuranceString.equals("")) {
+			System.out.println("신규 보험 목록이 비어있습니다.");
+			return;
+		}
+		System.out.println(insuranceString);
+		System.out.println("처리할 신규 보험 번호를 입력하여 주십시오.");
+		System.out.print("입력 : ");
+		// 신규 보험 개수도 알아야 한다.
+		InsuranceProduct selectedInsurance = null;
+		while(selectedInsurance == null) {
+			int selectedInsuranceID = InsuranceTui.getInputInteger(objReader, InsuranceTui.SCOPE_NONE);
+			selectedInsurance = this.mainController.getInsuranceProductController().getFreshInsurance(selectedInsuranceID);
+			if(selectedInsurance == null) System.out.print("올바르지 않은 입력입니다. 다시 입력하세요: ");
+		}
+		
 
+		// 특정 보험에서 처리할 수 있는 일 리스트 출력
+		// ex_보험 관리자 승인 / 보험 교육 승인
+		
+		String processStr = this.mainController.getInsuranceProductController().getFreshInsuranceProcessList(selectedInsurance.getID());
+		if(processStr == null) {
+			System.out.println("현재 해당 보험에 대한 처리 가능 목록이 없습니다. 초기 화면으로 돌아갑니다.");
+			return;
+		}
+		System.out.println("처리 가능 업무: "+processStr);
+		
+		System.out.print("해당 업무를 처리하시겠습니까? (yes / no) : ");
+		boolean isProcessSelect = InsuranceTui.getBoolean(objReader);
+		if(!isProcessSelect) {
+			System.out.println("업무 처리를 거부했습니다. 초기 화면으로 돌아갑니다.");
+			return;
+		}
+		
+		// 각 업무에 알맞은 visitor 할당
+		FreshInsuranceVisitor visitor = null;
+		switch(selectedInsurance.getCurrentStatus()){
+		case FSSApproval:	// 금융감독원 승인
+			visitor = new TrainRequestVisitor();
+			break;
+		case FSSDeny:		// 금융감독원 거부
+//			retString += "보험 승인 재검토";
+			break;
+		case adminApprovalWait:	// 관리자 승인 대기
+			visitor = new AdminApprovalVisitor();
+			break;
+		case adminDeny:		// 관리자 거부
+//			retString += "거부사유 확인";
+			break;
+		case trainRequest:	// 교육 의뢰
+			visitor = new TrainApprovalVisitor();
+			break;
+		case trainWait:		// 교육 대기
+			visitor = new TrainApprovalVisitor();
+			break;
+		case trainProgress:	// 교육 진행
+			visitor = new TrainFinishVisitor();
+			break;
+		default:
+			break;
+		}
+		visitor.visitInsuranceApprovalProcess(this.currentCustomer, selectedInsurance, this.mainController.getInsuranceProductController(), objReader);
 	}
 	
 	// -------------------------보험 가입부----------------------------------
@@ -201,17 +266,17 @@ public class InsuranceTui {
 			return;
 		}
 		
-		System.out.println("가입자 정보를 입력해주세요");
+		System.out.println("가입자 기초 서류 정보를 입력해주세요");
 		LinkedHashMap<String,Object> map = selectInsurance.getMemberPaperForm().getBasicPaperList();
 		for (Entry<String, Object> entry : map.entrySet()) {
             String paper = entry.getKey();
             Object type = entry.getValue();
             if(type == Boolean.class) {
-            	System.out.print(paper+": ");
-            	objReader.readLine();			//저장은 나중에 고려
-            }else if(type == String.class) {
             	System.out.println(paper+" (yes/no): ");
-            	getBoolean(objReader);
+            	getBoolean(objReader); 				//저장은 나중에 고려
+            }else if(type == String.class) {
+            	System.out.print(paper+": ");
+            	objReader.readLine();
             }
 		}
 		System.out.println("예상 보험료\t: "+10000+"원");		//임시로 예상 보험료 지정해둠
@@ -225,13 +290,13 @@ public class InsuranceTui {
 		boolean isPeriod = false;
 		int quarter = 0;
 		while(!isPeriod) {
-			System.out.println("보험 가입 기간 분기를 입력해주세요. (단위 x 분기만큼 기간이 설정됩니다..)");
+			System.out.println("보험 가입 기간 분기를 입력해주세요. (단위 x 분기만큼 가입 기간이 설정됩니다.)");
 			quarter = getInputInteger(objReader, SCOPE_NONE) * selectInsurance.getBasicInsuranceInfo().getTermPeriod().getTerm();
 			System.out.println("가입하시려는 기간이 "+quarter+"개월이 맞으십니까? (yes / no)");
 			isPeriod = getBoolean(objReader);
 		}
 		
-		System.out.println("보험금 납부 및 지급받을 계좌를 입력해주세요.");
+		System.out.println("보험금 납부 및 지급받을 계좌를 선택해주세요.");
 		Vector<String> accountList = currentCustomer.getPaymentBankAccount();
 		for(int i=0; i<accountList.size(); i++) {
 			System.out.println(i+1+": "+accountList.get(i));
