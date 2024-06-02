@@ -1,7 +1,5 @@
 package model.user;
 
-import model.Authority;
-
 /**
  * @author dongyeonkim
  * @version 1.0
@@ -13,10 +11,11 @@ public class User {
 	private String password;
 	private Authority authority;
 	private String age;
+	private String sex;
+	
 	public String getAge() {
 		return age;
 	}
-
 
 	public User(){
 
@@ -33,8 +32,6 @@ public class User {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-
-	private String sex;
 	
 
 	public String getId() {

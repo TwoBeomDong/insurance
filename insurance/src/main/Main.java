@@ -17,6 +17,7 @@ public class Main {
 		// associate
 		mainController.associate(mainTui);
 		mainTui.associate(mainController);
+		
 		// System run
 		mainTui.displayLogin();
 	}

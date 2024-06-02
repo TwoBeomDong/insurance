@@ -1,48 +1,84 @@
 package model.contract;
 
-import java.sql.Date;
+
+import java.time.LocalDate;
 
 import model.insurance.InsuranceProduct;
 import model.user.Customer;
 
 
 public class ContractInsurance {
-	private Date contractDate;
+	public enum PaymentType{
+		eBasicPayment("일반납부"),
+		eAutomaticTransfer("자동이체납부"),
+		;
+		private String title;
+		private PaymentType(String title) {
+			this.title = title;
+		}
+		public String getTitle() {
+			return this.title;
+		}
+	}
+	private LocalDate contractDate;
 	private Customer customer;
-	private Date expireDate;
+	private LocalDate expireDate;
 	private InsuranceProduct insuranceProduct;
+	private String paymentBankAccount;
+	private PaymentType paymentType;
+	// 보험비 추가해야됨.
 
 	public ContractInsurance(){
 
 	}
 
-	public void finalize() throws Throwable {
+	public LocalDate getContractDate() {
+		return contractDate;
+	}
 
+	public void contract() {
+		this.contractDate = LocalDate.now();
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public LocalDate getExpireDate() {
+		return expireDate;
+	}
+
+	public void setExpireDate(int month) {
+		this.expireDate = this.contractDate.plusMonths(month);
+	}
+
+	public InsuranceProduct getInsuranceProduct() {
+		return insuranceProduct;
+	}
+
+	public void setInsuranceProduct(InsuranceProduct insuranceProduct) {
+		this.insuranceProduct = insuranceProduct;
+	}
+
+	public String getPaymentBankAccount() {
+		return paymentBankAccount;
+	}
+
+	public void setPaymentBankAccount(String paymentBankAccount) {
+		this.paymentBankAccount = paymentBankAccount;
+	}
+
+	public PaymentType getPaymentType() {
+		return paymentType;
+	}
+
+	public void setPaymentType(PaymentType paymentType) {
+		this.paymentType = paymentType;
 	}
 	
-	public class ContractInsutanceBuilder {
 
-		private ContractInsurance contractInsurance;
-
-		public ContractInsutanceBuilder(){
-			this.contractInsurance = new ContractInsurance(); 
-		}
-
-		public ContractInsutanceBuilder setContractDate(){
-			return this;
-		}
-
-		public ContractInsutanceBuilder setCustomer(){
-			return this;
-		}
-
-		public ContractInsutanceBuilder setExpireDate(){
-			return this;
-		}
-
-		public ContractInsutanceBuilder setInsuranceProd(){
-			return this;
-		}
-
-	}
 }

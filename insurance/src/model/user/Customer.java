@@ -1,26 +1,22 @@
 package model.user;
 
-/**
- * @author dongyeonkim
- * @version 1.0
- * @created 14-5-2024 ���� 6:43:14
- */
+import java.util.Vector;
+
 public class Customer extends User {
 
-	private String paymentBankAccount;
+	private Vector<String> paymentBankAccount;
 
 	public Customer(){
-
+		this.paymentBankAccount = new Vector<>();
 	}
-
 	
-	public String getPaymentBankAccount() {
+	public Vector<String> getPaymentBankAccount() {
 		return paymentBankAccount;
 	}
 
 
-	public void setPaymentBankAccount(String paymentBankAccount) {
-		this.paymentBankAccount = paymentBankAccount;
+	public void addPaymentBankAccount(String paymentBankAccount) {
+		this.paymentBankAccount.add(paymentBankAccount);
 	}
 
 

@@ -3,13 +3,9 @@ package view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.rmi.Naming;
-import java.util.LinkedHashMap;
 
 import controller.MainController;
-import freshInsuranceVisitor.ApprovalVisitor;
-import model.insurance.InsuranceType;
-import model.insurance.TermPeriod;
+import model.user.Customer;
 
 public class MainTui {
 	public static final int SCOPE_NONE = -2;
@@ -23,24 +19,7 @@ public class MainTui {
 	
 	public void associate(MainController mainController) {
 		this.mainController = mainController;
-	}
-	
-	public static int getInputInteger(BufferedReader objReader, int scope) throws IOException {
-		int retVal;
-		while (true) {
-			try {
-				retVal = Integer.parseInt(objReader.readLine().trim());
-				if (scope != SCOPE_NONE) {
-					if (0 >= retVal || scope < retVal) {
-						System.out.print("올바르지 않은 입력입니다. 다시 입력하세요: ");
-						continue;
-					}
-				}
-				return retVal;
-			} catch (NumberFormatException e) {
-				System.out.print("올바르지 않은 입력입니다. 다시 입력하세요: ");
-			}
-		}
+		this.insuranceTui.associate(this.mainController);
 	}
 	
 	//---------------------Login Logic-----------------------------------
@@ -52,12 +31,13 @@ public class MainTui {
 		String sLoginChoice = objReader.readLine().trim();
 		if (sLoginChoice.equals("1")) {
 			// login
-			boolean isLogin = false;
+			Customer customer = null;
 			do {
-				isLogin = printLogin(objReader);
+				customer = printLogin(objReader);
 			}
-			while(!isLogin);
+			while(customer == null);
 			System.out.println("로그인 성공");
+			this.insuranceTui.login(customer);
 			displayMain(objReader);
 		}else if(sLoginChoice.equals("2")) {
 			// register
@@ -65,12 +45,15 @@ public class MainTui {
 		}
 	}
 	
-	private boolean printLogin(BufferedReader objReader) throws IOException {
+	private Customer printLogin(BufferedReader objReader) throws IOException {
 		System.out.print("아이디를 입력하세요: ");
 		String id =  objReader.readLine().trim();
 		System.out.print("비밀번호를 입력하세요: ");
 		String password = objReader.readLine().trim();
-		return this.mainController.getCustomerController().checkPassword(id, password);
+		if(this.mainController.getCustomerController().checkPassword(id, password)) {
+			return this.mainController.getCustomerController().getCustomer(id);
+		}
+		return null;
 	}
 
 	private void printFirstloginMenu() {
@@ -138,9 +121,9 @@ public class MainTui {
 				insuranceTui.printApprovalNewInsurance(objReader);
 				break;
 			case "3":
-				System.out.println("준비중인 메뉴입니다.");
+				insuranceTui.registerInsurance(objReader);
 			case "menu":
-//				insurance.printMenu();
+				this.printMenu();
 			default:
 				failNum++;
 				break;
@@ -161,7 +144,7 @@ public class MainTui {
 		System.out.println("-----상품 개발 부서 관리자-----");
 		System.out.println("2. 신규 보험 목록");
 		System.out.println("-----고객-----");
-		System.out.println("3. 보험 가입");
+		System.out.println("3. 신규 보험 가입");
 	}
 
 }

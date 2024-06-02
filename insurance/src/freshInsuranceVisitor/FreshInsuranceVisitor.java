@@ -4,8 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.rmi.RemoteException;
 
-import controller.InsuranceProductController;
+import controller.C_InsuranceProduct;
 
 public interface FreshInsuranceVisitor {
-	public void visitInsuranceApprovalProcess(InsuranceProductController insuranceList, BufferedReader objReader) throws IOException, RemoteException;
+	public void visitInsuranceApprovalProcess(C_InsuranceProduct insuranceList, BufferedReader objReader) throws IOException, RemoteException;
 }

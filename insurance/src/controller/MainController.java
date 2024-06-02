@@ -2,6 +2,7 @@ package controller;
 
 import model.contract.ContractInsuranceList;
 import model.insurance.InsuranceProductList;
+import model.user.Customer;
 import model.user.CustomerList;
 import model.user.EmployeeList;
 import view.MainTui;
@@ -24,10 +25,10 @@ public class MainController {
 	private MainTui mainTui;
 
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡcontrollerㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-	private CustomerController customerController;
-	private ContractInsuranceController contractInsuranceController;
-	private EmployeeController employeeController;
-	private InsuranceProductController insuranceProductController;
+	private C_Customer customerController;
+	private C_ContractInsurance contractInsuranceController;
+	private C_Employee employeeController;
+	private C_InsuranceProduct insuranceProductController;
 
 	public MainController() {
 		this.customerList = new CustomerList();
@@ -35,45 +36,47 @@ public class MainController {
 		this.employeeList = new EmployeeList();
 		this.insuranceProductList=new InsuranceProductList();
 		
-		this.customerController = new CustomerController(customerList);
-		this.contractInsuranceController = new ContractInsuranceController(contractInsuranceList);
-		this.employeeController = new EmployeeController(employeeList);
-		this.insuranceProductController = new InsuranceProductController(insuranceProductList);
+		this.customerController = new C_Customer(customerList);
+		this.contractInsuranceController = new C_ContractInsurance(contractInsuranceList);
+		this.employeeController = new C_Employee(employeeList);
+		this.insuranceProductController = new C_InsuranceProduct(insuranceProductList);
 	}
 
 	public void associate(MainTui mainTui) {
 		this.mainTui = mainTui;
+		Customer testUser = this.customerList.getCustomerList().get(0);
+		
 	}
 
-	public CustomerController getCustomerController() {
+	public C_Customer getCustomerController() {
 		return customerController;
 	}
 
-	public void setCustomerController(CustomerController customerController) {
+	public void setCustomerController(C_Customer customerController) {
 		this.customerController = customerController;
 	}
 
-	public ContractInsuranceController getContractInsuranceController() {
+	public C_ContractInsurance getContractInsuranceController() {
 		return contractInsuranceController;
 	}
 
-	public void setContractInsuranceController(ContractInsuranceController contractInsuranceController) {
+	public void setContractInsuranceController(C_ContractInsurance contractInsuranceController) {
 		this.contractInsuranceController = contractInsuranceController;
 	}
 
-	public EmployeeController getEmployeeController() {
+	public C_Employee getEmployeeController() {
 		return employeeController;
 	}
 
-	public void setEmployeeController(EmployeeController employeeController) {
+	public void setEmployeeController(C_Employee employeeController) {
 		this.employeeController = employeeController;
 	}
 
-	public InsuranceProductController getInsuranceProductController() {
+	public C_InsuranceProduct getInsuranceProductController() {
 		return insuranceProductController;
 	}
 
-	public void setInsuranceProductController(InsuranceProductController insuranceProductController) {
+	public void setInsuranceProductController(C_InsuranceProduct insuranceProductController) {
 		this.insuranceProductController = insuranceProductController;
 	}
 	

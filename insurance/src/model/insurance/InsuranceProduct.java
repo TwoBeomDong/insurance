@@ -2,6 +2,12 @@ package model.insurance;
 
 import java.util.Vector;
 
+import model.insurance.info.BasicInsuranceInfo;
+import model.insurance.info.InsuranceStatus;
+import model.insurance.info.MemberPaperForm;
+import model.insurance.info.ProductApprovalPaper;
+import model.insurance.info.StatusChangeInfo;
+
 /**
  * @author dongyeonkim
  * @version 1.0

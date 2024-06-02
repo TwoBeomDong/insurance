@@ -12,9 +12,9 @@ public class CustomerList {
 		Customer testUser = new Customer();
 		testUser.setId("test");
 		testUser.setPassword("1234");
+		testUser.addPaymentBankAccount("12345678");
 		
 		this.customerList.add(testUser);
-
 	}
 
 	public Vector<Customer> getCustomerList() {
