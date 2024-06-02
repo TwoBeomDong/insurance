@@ -7,14 +7,6 @@ public class CustomerList {
 
 	public CustomerList() {
 		this.customerList = new Vector<>();
-		// test data
-		// customer list 만들자마자 testUser를 넣은 것
-		Customer testUser = new Customer();
-		testUser.setId("test");
-		testUser.setPassword("1234");
-		testUser.addPaymentBankAccount("12345678");
-		
-		this.customerList.add(testUser);
 	}
 
 	public Vector<Customer> getCustomerList() {

@@ -1,7 +1,16 @@
 package controller;
 
+import java.time.LocalDate;
+
+import model.contract.ContractInsurance;
+import model.contract.ContractInsurance.PaymentType;
 import model.contract.ContractInsuranceList;
+import model.insurance.InsuranceProduct;
 import model.insurance.InsuranceProductList;
+import model.insurance.info.BasicInsuranceInfo;
+import model.insurance.info.InsuranceType;
+import model.insurance.info.TermPeriod;
+import model.support.RequestSupportList;
 import model.user.Customer;
 import model.user.CustomerList;
 import model.user.EmployeeList;
@@ -15,37 +24,59 @@ public class MainController {
 	// 2. 각 컨트롤러에서도. 생성자에서 모델을 new 해야돼 그럼 그 순간에 데이터가 생겨.
 	// 2-1. 하위 컨트롤러 내에서 각각 컨트롤러가 가져야 할(알고 있어야 할) 모델들을 가져. new 해서.
 
-	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡmodelㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	// model
 	private CustomerList customerList;
 	private ContractInsuranceList contractInsuranceList;
 	private EmployeeList employeeList;
 	private InsuranceProductList insuranceProductList;
+	private RequestSupportList requestSupportList;
 
 	// ----------------------view--------------------
 	private MainTui mainTui;
 
-	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡcontrollerㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	// controller
 	private C_Customer customerController;
 	private C_ContractInsurance contractInsuranceController;
 	private C_Employee employeeController;
 	private C_InsuranceProduct insuranceProductController;
+	private C_Support requestSupportController;
 
 	public MainController() {
+
+		// test data
+		// customer list 만들자마자 testUser를 넣은 것
+		Customer testUser = new Customer();
+		testUser.setId("test");
+		testUser.setPassword("1234");
+		testUser.addPaymentBankAccount("12345678");
+
+		BasicInsuranceInfo testBasicInsuranceInfo = new BasicInsuranceInfo("supportInsurance", InsuranceType.life,
+				TermPeriod.month_1);
+		InsuranceProduct testInsurance = new InsuranceProduct(testBasicInsuranceInfo, null, 123);
+
 		this.customerList = new CustomerList();
+		// add customer test data
+		this.customerList.getCustomerList().add(testUser);
+
 		this.contractInsuranceList = new ContractInsuranceList();
+		// add Contract Insurance test data
+		this.contractInsuranceList.getContractInsuranceList().add(new ContractInsurance(LocalDate.now(), testUser,
+				LocalDate.now(), testInsurance, "123456", PaymentType.eBasicPayment));
 		this.employeeList = new EmployeeList();
-		this.insuranceProductList=new InsuranceProductList();
+		this.insuranceProductList = new InsuranceProductList();
 		
+		
+		this.requestSupportList = new RequestSupportList();
+
 		this.customerController = new C_Customer(customerList);
 		this.contractInsuranceController = new C_ContractInsurance(contractInsuranceList);
 		this.employeeController = new C_Employee(employeeList);
 		this.insuranceProductController = new C_InsuranceProduct(insuranceProductList);
+		this.requestSupportController = new C_Support(requestSupportList);
 	}
 
 	public void associate(MainTui mainTui) {
 		this.mainTui = mainTui;
-		Customer testUser = this.customerList.getCustomerList().get(0);
-		
 	}
 
 	public C_Customer getCustomerController() {
@@ -79,5 +110,13 @@ public class MainController {
 	public void setInsuranceProductController(C_InsuranceProduct insuranceProductController) {
 		this.insuranceProductController = insuranceProductController;
 	}
-	
+
+	public C_Support getRequestSupportController() {
+		return requestSupportController;
+	}
+
+	public void setRequestSupportController(C_Support requestSupportController) {
+		this.requestSupportController = requestSupportController;
+	}
+
 }
