@@ -2,8 +2,10 @@
 
 import java.util.Vector;
 
+import model.user.Authority;
 import model.user.Customer;
 import model.user.CustomerList;
+import model.user.User.eSex;
 
 /**
  * @author dongyeonkim
@@ -18,11 +20,17 @@ public class C_Customer {
 
 	}
 
-	public boolean addCustomer(String name, String age, String sex, String paymentBankAccount, String id, String pw) {
+	public boolean addCustomer(String name, int age, eSex sex, String paymentBankAccount, String id, String pw) {
 
 		// 정상적인 회원가입 정보인지 (아이디값을 중복되지 않게 넣었는지) 처리하는 로직
-
-		return true;
+		Customer newCustomer = new Customer();
+		newCustomer.setAge(age);
+		newCustomer.setAuthority(Authority.Viewer);
+		newCustomer.setId(id);
+		newCustomer.setPassword(pw);
+		newCustomer.setSex(sex);
+		newCustomer.addPaymentBankAccount(paymentBankAccount);
+		return this.customerList.addCustomer(newCustomer);
 	}
 
 	public boolean deleteCustomer(String id) {
