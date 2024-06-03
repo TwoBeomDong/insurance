@@ -46,7 +46,7 @@ public class Terminator {
                     contract.getContractDate() // contractDate
                 );
                 terminateList.addTerminateInsurance(terminated);
-                System.out.println("\nTEXT ONLY IN DEMO:: 보험 ID: " + contract.getInsuranceProduct().getID()+"이 계약기간이 만료되어 만기해지되었습니다.");
+                System.out.println("\nTEXT ONLY IN DEMO:: 보험 ID: " + contract.getInsuranceProduct().getID()+"가 계약기간이 만료되어 만기해지되었습니다.");
         //}
         }
     }

@@ -6,14 +6,26 @@ package model.user;
  * @created 14-5-2024 ���� 6:43:15
  */
 public class User {
+	public enum eSex{
+		eMale("남자"),
+		eFemale("여자")
+		;
+		private String title;
+		private eSex(String title) {
+			this.title = title;
+		}
+		public String getTitle() {
+			return this.title;
+		}
+	}
 
 	private String id;
 	private String password;
 	private Authority authority;
-	private String age;
-	private String sex;
+	private int age;
+	private eSex sex;
 	
-	public String getAge() {
+	public int getAge() {
 		return age;
 	}
 
@@ -21,15 +33,15 @@ public class User {
 
 	}
 	
-	public void setAge(String age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 
-	public String getSex() {
+	public eSex getSex() {
 		return sex;
 	}
 
-	public void setSex(String sex) {
+	public void setSex(eSex sex) {
 		this.sex = sex;
 	}
 	

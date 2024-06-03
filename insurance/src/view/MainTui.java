@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 
 import controller.MainController;
 import model.user.Customer;
+import model.user.User.eSex;
 
 public class MainTui {
 	public static final int SCOPE_NONE = -2;
@@ -39,6 +40,7 @@ public class MainTui {
 			this.customer = null;
 			do {
 				this.customer = printLogin(objReader);
+				if(this.customer == null) System.out.println("입력하신 아이디/비밀번호가 잘못되었습니다.");
 			} while (customer == null);
 			System.out.println("로그인 성공");
 			this.insuranceTui.login(customer);
@@ -70,17 +72,25 @@ public class MainTui {
 		System.out.println("이름을 입력하세요: ");
 		String name = objReader.readLine().trim();
 
-		System.out.println("나이를 입력하세요. 예: (25살)");
-		String age = objReader.readLine().trim();
+		System.out.println("나이를 입력하세요. 예: (25)");
+		int age = InsuranceTui.getInputInteger(objReader, 150);
 
-		System.out.println("성별을 입력하세요. 예: (남자)");
-		String sex = objReader.readLine().trim();
+		System.out.println("성별을 선택하세요.");
+		for(int i = 0; i< eSex.values().length; i++) {
+			System.out.println(i+1+" : "+eSex.values()[i].getTitle());
+		}
+		eSex sex = eSex.values()[InsuranceTui.getInputInteger(objReader, eSex.values().length)-1];
 
 		System.out.println("계좌 정보를 입력하세요. 예: 123456");
 		String paymentBankAccount = objReader.readLine().trim();
 
 		System.out.println("아이디를 입력하세요: ");
 		String id = objReader.readLine().trim();
+		while(mainController.getCustomerController().getCustomer(id)!=null) {
+			System.out.println("이미 사용중인 아이디입니다. 다른 아이디를 입력하세요.");
+			id = objReader.readLine().trim();
+		}
+			
 		System.out.println("비밀번호를 입력하세요: ");
 		String pw = objReader.readLine().trim();
 
@@ -145,6 +155,7 @@ public class MainTui {
 			System.out.print("menu를 선택하세요. (종료하려면 x를 입력합니다.): ");
 			sChoice = objReader.readLine().trim();
 		}
+		System.out.println("보험사 시스템을 종료합니다.");
 	}
 
 	private void printMenu() {

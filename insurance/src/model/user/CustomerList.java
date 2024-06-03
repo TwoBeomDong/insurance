@@ -16,4 +16,8 @@ public class CustomerList {
 	public void setCustomerList(Vector<Customer> customerList) {
 		this.customerList = customerList;
 	}
+	
+	public boolean addCustomer(Customer customer) {
+		return this.customerList.add(customer);
+	}
 }

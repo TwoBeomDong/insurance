@@ -15,6 +15,7 @@ import model.terminate.TerminateInsuranceList;
 import model.user.Customer;
 import model.user.CustomerList;
 import model.user.EmployeeList;
+import model.user.User.eSex;
 import terminator.Terminator;
 import view.MainTui;
 
@@ -48,25 +49,10 @@ public class MainController {
 
 	public MainController() {
 
-		// test data
-		// customer list 만들자마자 testUser를 넣은 것
-		Customer testUser = new Customer();
-		testUser.setId("test");
-		testUser.setPassword("1234");
-		testUser.addPaymentBankAccount("12345678");
 
-		BasicInsuranceInfo testBasicInsuranceInfo = new BasicInsuranceInfo("supportInsurance", InsuranceType.life,
-				TermPeriod.month_1);
-		InsuranceProduct testInsurance = new InsuranceProduct(testBasicInsuranceInfo, null, 123);
 
 		this.customerList = new CustomerList();
-		// add customer test data
-		this.customerList.getCustomerList().add(testUser);
-
 		this.contractInsuranceList = new ContractInsuranceList();
-		// add Contract Insurance test data
-		this.contractInsuranceList.getContractInsuranceList().add(new ContractInsurance(LocalDate.now(), testUser,
-				LocalDate.now(), testInsurance, "123456", PaymentType.eBasicPayment));
 		this.employeeList = new EmployeeList();
 		this.insuranceProductList = new InsuranceProductList();
 		
@@ -80,6 +66,27 @@ public class MainController {
 		this.employeeController = new C_Employee(employeeList);
 		this.insuranceProductController = new C_InsuranceProduct(insuranceProductList);
 		this.requestSupportController = new C_Support(requestSupportList);
+		
+		
+		
+		// test data
+		// customer list 만들자마자 testUser를 넣은 것
+		Customer testUser = new Customer();
+		testUser.setId("test");
+		testUser.setPassword("1234");
+		testUser.addPaymentBankAccount("12345678");
+
+		BasicInsuranceInfo testBasicInsuranceInfo = new BasicInsuranceInfo("supportInsurance", InsuranceType.life,
+				TermPeriod.month_1);
+		InsuranceProduct testInsurance = new InsuranceProduct(testBasicInsuranceInfo, null, 123);
+		
+		// add customer test data
+		this.customerController.addCustomer("데모유저", 25, eSex.eMale, "123456789", "test", "1234");
+		
+		// add Contract Insurance test data
+		this.contractInsuranceController.AddContractInsurance(testInsurance, testUser, 12,
+				testUser.getPaymentBankAccount().get(0), PaymentType.eBasicPayment);
+
 	}
 
 	public void associate(MainTui mainTui) {
