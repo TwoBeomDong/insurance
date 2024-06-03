@@ -326,9 +326,14 @@ public class InsuranceTui {
 		    if (terminateList.isEmpty()) {
 		        System.out.println("해지된 보험이 없습니다.");
 		    } else {
-		        System.out.println("해지된 보험 목록:");
-		        for (TerminateInsurance insurance : terminateList) {
-		            System.out.println("보험 ID: " + insurance.getInsuranceId() + "\n고객 ID: " + insurance.getCustomerId() + ", 해지 날짜: " + insurance.getTerminationDate());
+		        System.out.println("-----해지 보험 목록-----");
+		        for (TerminateInsurance insurance : terminateList) { 
+		            System.out.println("보험 ID: " + insurance.getInsuranceId() + 
+		            				   ", 고객 ID: " + insurance.getCustomerId() + 
+		            				   ", 보험가입일시: " + insurance.getContractDate() +
+		            				   ", 보험해지일시: " + insurance.getTerminationDate() +  
+		            				   ", 만기해지여부: " + insurance.getIsmature() + 
+		            				   ", 해지환급금: (추가구현예정)");
 		        }
 		    }
 		}
