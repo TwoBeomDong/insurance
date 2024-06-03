@@ -130,13 +130,15 @@ public class MainTui {
 			case "4":
 				supportTui.printSupport(objReader, this.customer);
 				break;
+			case "5":
+				insuranceTui.terminateInsurance(objReader);
 			case "menu":
 				this.printMenu();
 			default:
 				failNum++;
 				break;
 			}
-			if (failNum > 3) {
+			if (failNum > 5) {
 				System.out.println("메뉴를 다시 보고싶다면 menu를 입력하세요.");
 				failNum = 0;
 			}
@@ -154,6 +156,8 @@ public class MainTui {
 		System.out.println("-----고객-----");
 		System.out.println("3. 신규 보험 가입");
 		System.out.println("4. 보험금 청구");
+		System.out.println("-----계약 관리 부서 관리자-----");
+		System.out.println("5. 해지 보험 목록");
 	}
 
 }

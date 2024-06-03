@@ -16,6 +16,7 @@ import model.contract.ContractInsurance.PaymentType;
 import model.insurance.InsuranceProduct;
 import model.insurance.info.InsuranceType;
 import model.insurance.info.TermPeriod;
+import model.terminate.TerminateInsurance;
 import model.user.Customer;
 
 public class InsuranceTui {
@@ -318,4 +319,22 @@ public class InsuranceTui {
 		System.out.println("[사용자 정보 변경]메뉴에서 납부계좌를 변경하실 수 있습니다.");
 
 	}
+	// -------------------------보험 해지/환급(직원전용메뉴)----------------------------------
+		public void terminateInsurance(BufferedReader objReader) {
+		    Vector<TerminateInsurance> terminateList = this.mainController.getTerminateInsuranceList().getTerminateInsuranceList();
+		    
+		    if (terminateList.isEmpty()) {
+		        System.out.println("해지된 보험이 없습니다.");
+		    } else {
+		        System.out.println("-----해지 보험 목록-----");
+		        for (TerminateInsurance insurance : terminateList) { 
+		            System.out.println("보험 ID: " + insurance.getInsuranceId() + 
+		            				   ", 고객 ID: " + insurance.getCustomerId() + 
+		            				   ", 보험가입일시: " + insurance.getContractDate() +
+		            				   ", 보험해지일시: " + insurance.getTerminationDate() +  
+		            				   ", 만기해지여부: " + insurance.getIsmature() + 
+		            				   ", 해지환급금: (추가구현예정)");
+		        }
+		    }
+		}
 }
