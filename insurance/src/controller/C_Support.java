@@ -27,8 +27,8 @@ public class C_Support {
 		requestSupport.setContractInsurance(selectedInsurance);
 		
 		this.requestSupportList.getRequestSupportsList().add(requestSupport);
-		
-		System.out.println(requestSupportList.getRequestSupportsList().get(0).toString());
+		//잘 들어오는지 확인
+		//System.out.println(requestSupportList.getRequestSupportsList().get(0).toString());
 		return true;
 	}
 	

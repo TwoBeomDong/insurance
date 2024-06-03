@@ -20,7 +20,7 @@ public class Terminator {
         this.terminateList = terminateList;
 
         Timer timer = new Timer(true);
-        timer.scheduleAtFixedRate(new TerminateTask(), 60000, 60000); // 데모하기 위해 프로그램 시작 60초후 timer실행, 60초마다 timer가 만기보험 체크
+        timer.scheduleAtFixedRate(new TerminateTask(), 300000, 60000); // 데모하기 위해 프로그램 시작 60초후 timer실행, 60초마다 timer가 만기보험 체크
     }
 
     class TerminateTask extends TimerTask {
