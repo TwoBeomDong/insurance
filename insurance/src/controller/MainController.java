@@ -1,8 +1,5 @@
 package controller;
 
-import java.time.LocalDate;
-
-import model.contract.ContractInsurance;
 import model.contract.ContractInsurance.PaymentType;
 import model.contract.ContractInsuranceList;
 import model.insurance.InsuranceProduct;
