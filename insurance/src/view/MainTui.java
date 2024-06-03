@@ -128,7 +128,7 @@ public class MainTui {
 				insuranceTui.registerInsurance(objReader);
 				break;
 			case "4":
-				supportTui.printSupprot(objReader, this.customer);
+				supportTui.printSupport(objReader, this.customer);
 				break;
 			case "menu":
 				this.printMenu();
