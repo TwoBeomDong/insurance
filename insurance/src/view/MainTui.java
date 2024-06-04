@@ -49,8 +49,7 @@ public class MainTui {
 			// register
 			printRegisterMenu(objReader);
 		}
-		
-		System.out.println("dmddo");
+		System.out.println("pull test");
 	}
 
 	private Customer printLogin(BufferedReader objReader) throws IOException {
