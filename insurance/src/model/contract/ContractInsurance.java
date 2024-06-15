@@ -1,11 +1,11 @@
 package model.contract;
 
 import java.time.LocalDate;
-import terminator.Terminator;
 import model.claim.RequestClaim;
 import model.claim.RequestClaimList;
 import model.insurance.InsuranceProduct;
 import model.insurancePremium.InsurancePremium;
+import model.insurancePremium.PaymentStatus;
 import model.insurancePremium.PaymentType;
 import model.user.Customer;
 
@@ -30,7 +30,7 @@ public class ContractInsurance {
 	}
 	
 	public ContractInsurance(LocalDate contractDate, Customer customer, LocalDate expireDate,
-			InsuranceProduct insuranceProduct, String paymentBankAccount, PaymentType paymentType, Terminator terminator) {
+			InsuranceProduct insuranceProduct, String paymentBankAccount, PaymentType paymentType) {
 		this.requestClaimList = new RequestClaimList();
 		this.contractDate = contractDate;
 		this.customer = customer;
@@ -69,6 +69,7 @@ public class ContractInsurance {
 	}
 
 	public void setInsuranceProduct(InsuranceProduct insuranceProduct) {
+		this.insurancePremium.setMoney(insuranceProduct.getBasicInsuranceInfo().getType().getMoney());
 		this.insuranceProduct = insuranceProduct;
 	}
 
@@ -83,13 +84,23 @@ public class ContractInsurance {
 	public PaymentType getPaymentType() {
 		return this.insurancePremium.getPaymentType();
 	}
+	
+	public int getMoney() {
+		return this.insurancePremium.getMoney();
+	}
+	public LocalDate getPaymentDate() {
+		return this.insurancePremium.getPaymentDate();
+	}
+	public PaymentStatus getPaymentStatus() {
+		return this.insurancePremium.getPaymentStatus();
+	}
 
 	public void setPaymentType(PaymentType paymentType) {
 		this.insurancePremium.setPaymentType(paymentType);
 	}
 	
-	public void doPayment() {
-		this.insurancePremium.doPayment();
+	public boolean doPayment() {
+		return this.insurancePremium.doPayment();
 	}
 
 	public RequestClaim getCurrentClaim() {

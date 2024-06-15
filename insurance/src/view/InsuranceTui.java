@@ -258,7 +258,7 @@ public class InsuranceTui {
 				objReader.readLine();
 			}
 		}
-		System.out.println("예상 보험료\t: " + 10000 + "원"); // 임시로 예상 보험료 지정해둠
+		System.out.println("예상 보험료\t: " + selectInsurance.getBasicInsuranceInfo().getType().getMoney() + "원");
 		System.out.println("해당 보험에 가입하시겠습니까?  (yes/no):");
 		boolean isRegister = MainTui.getBoolean(objReader);
 		if (!isRegister) {

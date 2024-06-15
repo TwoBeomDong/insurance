@@ -15,7 +15,7 @@ public class ChangePaymentTypeVisitor implements ContractInsuranceVisitor{
 		PaymentType paymentType = contractInsurance.getPaymentType();
 		PaymentType newPaymentType = (paymentType == PaymentType.eBasicPayment ? PaymentType.eAutomaticTransfer : PaymentType.eBasicPayment);
 		System.out.println("현재 해당 보험의 납부방식은 ["+paymentType.getTitle()+"] 입니다.");
-		System.out.println("납부방식을 ["+newPaymentType.getTitle()+"] 로 변경하시겠습니까?");
+		System.out.println("납부방식을 ["+newPaymentType.getTitle()+"] 로 변경하시겠습니까? (yes / no)");
 		if(paymentType == PaymentType.eBasicPayment) {
 			System.out.println("현재 등록된 계좌로 자동이체가 설정됩니다.");
 		}
