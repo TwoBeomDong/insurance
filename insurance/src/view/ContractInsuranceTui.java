@@ -31,7 +31,7 @@ public class ContractInsuranceTui {
 
 		// 없으면 가입보험 없음
 		if (list == null || list.size() == 0) {
-			System.out.println("현재 가입중이신 보험 상품이 없습니다.");
+			System.out.println("현재 가입중인 보험 상품이 없습니다.");
 			return;
 		} else {
 			for (int i = 0; i < list.size(); i++) {
