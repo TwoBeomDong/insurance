@@ -180,7 +180,7 @@ public class MainTui {
 				failNum++;
 				break;
 			}
-			if (failNum > 5) {
+			if (failNum > 3) {
 				System.out.println("메뉴를 다시 보고싶다면 menu를 입력하세요.");
 				failNum = 0;
 			}

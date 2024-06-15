@@ -7,6 +7,7 @@ import java.util.Vector;
 import contractInsuranceVisitor.ChangePaymentTypeVisitor;
 import contractInsuranceVisitor.ContractInsuranceVisitor;
 import contractInsuranceVisitor.InsuranceClaimVisitor;
+import contractInsuranceVisitor.PayPremiumVisitor;
 import controller.MainController;
 import model.contract.ContractInsurance;
 import model.user.Customer;
@@ -43,6 +44,17 @@ public class ContractInsuranceTui {
 		int index = MainTui.getInputInteger(objReader, list.size());
 		ContractInsurance selectedInsurance = list.get(index - 1);
 		
+		System.out.println("********** 가입보험정보 **********");
+		System.out.println("보험명 : "+selectedInsurance.getInsuranceProduct().getBasicInsuranceInfo().getName());
+		System.out.println("보험 가입일 : "+selectedInsurance.getContractDate());
+		System.out.println("만기 예정일 : "+selectedInsurance.getExpireDate());
+		System.out.println("보험료 납입계좌 : "+selectedInsurance.getPaymentBankAccount());
+		System.out.println("현재 납입방식 : "+selectedInsurance.getPaymentType().getTitle());
+		System.out.println("현재 보험료 : "+selectedInsurance.getMoney());
+		System.out.println("다음 납입일 : "+selectedInsurance.getPaymentDate());
+		System.out.println("납입상태 : "+selectedInsurance.getPaymentStatus().getTitle());
+		System.out.println("*******************************");
+		
 		Vector<String> processList = this.mainController.getContractInsuranceController()
 				.getContractInsuranceProcessList(selectedInsurance);
 		if (processList == null) {
@@ -60,12 +72,15 @@ public class ContractInsuranceTui {
 		switch(processIndex) {
 		case 1:	// 보험료 납부방식 변경 요청
 			visitor = new ChangePaymentTypeVisitor();
+			break;
 		case 2:	// 보험료 납부
-			
+			visitor = new PayPremiumVisitor();
+			break;
 		case 3:	// 보험 중도해지
-			
+			break;
 		case 4:	// 보험금 청구
 			visitor = new InsuranceClaimVisitor();
+			break;
 		}
 		visitor.visitContractInsurance(selectedInsurance, objReader);
 	}
