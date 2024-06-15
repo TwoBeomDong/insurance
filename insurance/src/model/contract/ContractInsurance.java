@@ -1,9 +1,7 @@
 
 package model.contract;
 
-
 import java.time.LocalDate;
-
 import model.claim.RequestClaim;
 import model.claim.RequestClaimList;
 import model.claim.info.ClaimStatus;
@@ -13,7 +11,6 @@ import model.insurancePremium.PaymentStatus;
 import model.insurancePremium.PaymentType;
 import model.user.Customer;
 
-
 public class ContractInsurance {
 	private LocalDate contractDate;
 	private Customer customer;
@@ -22,7 +19,7 @@ public class ContractInsurance {
 	private String paymentBankAccount;
 	private RequestClaimList requestClaimList;
 	private InsurancePremium insurancePremium;
-	
+
 	public boolean equals(ContractInsurance contractInsurance) {
 		// 고객과 보험이 같으면 같다고 판단
 		return this.customer.equals(contractInsurance.customer.getId()) &&
@@ -34,16 +31,16 @@ public class ContractInsurance {
 		this.insurancePremium = new InsurancePremium();
 	}
 	
-//	public ContractInsurance(LocalDate contractDate, Customer customer, LocalDate expireDate,
-//			InsuranceProduct insuranceProduct, String paymentBankAccount, PaymentType paymentType) {
-//		this.requestClaimList = new RequestClaimList();
-//		this.contractDate = contractDate;
-//		this.customer = customer;
-//		this.expireDate = expireDate;
-//		this.insuranceProduct = insuranceProduct;
-//		this.paymentBankAccount = paymentBankAccount;
-//		this.insurancePremium = new InsurancePremium(paymentType);
-//	}
+	public ContractInsurance(LocalDate contractDate, Customer customer, LocalDate expireDate,
+			InsuranceProduct insuranceProduct, String paymentBankAccount, PaymentType paymentType) {
+		this.requestClaimList = new RequestClaimList();
+		this.contractDate = contractDate;
+		this.customer = customer;
+		this.expireDate = expireDate;
+		this.insuranceProduct = insuranceProduct;
+		this.paymentBankAccount = paymentBankAccount;
+		this.insurancePremium = new InsurancePremium(paymentType);
+	}
 
 	public LocalDate getContractDate() {
 		return contractDate;

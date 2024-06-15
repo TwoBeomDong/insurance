@@ -6,41 +6,37 @@ import java.util.Vector;
 
 import contractInsuranceVisitor.ChangePaymentTypeVisitor;
 import contractInsuranceVisitor.ContractInsuranceVisitor;
+import contractInsuranceVisitor.EarlyTerminateVisitor;
 import contractInsuranceVisitor.InsuranceClaimVisitor;
 import contractInsuranceVisitor.PayPremiumVisitor;
 import controller.MainController;
 import model.claim.RequestClaim;
 import model.claim.info.ClaimStatus;
 import model.contract.ContractInsurance;
+import terminator.Terminator;
 import model.user.Customer;
 
 public class ContractInsuranceTui {
 
-	private MainController mainController;
+    private MainController mainController;
 
-	public void associate(MainController mainController) {
-		this.mainController = mainController;
-	}
+    public void associate(MainController mainController) {
+        this.mainController = mainController;
+    }
 
-	public void printContractInsurance(BufferedReader objReader, Customer customer) throws IOException {
-		/*
-		 * 기존 보험 확인부
-		 * 
-		 * 사용자가 선택한 메뉴에 대한 일을 처리할 비지터 호출
-		 */
-		Vector<ContractInsurance> list = this.mainController.getContractInsuranceController()
-				.getSelectedCustomer(customer);
+    public void printContractInsurance(BufferedReader objReader, Customer customer) throws IOException {
+        Vector<ContractInsurance> list = this.mainController.getContractInsuranceController()
+                .getSelectedCustomer(customer);
 
-		// 없으면 가입보험 없음
-		if (list == null || list.size() == 0) {
-			System.out.println("현재 가입중이신 보험 상품이 없습니다.");
-			return;
-		} else {
-			for (int i = 0; i < list.size(); i++) {
-				System.out
-						.println((i + 1) + ". " + list.get(i).getInsuranceProduct().getBasicInsuranceInfo().getName());
-			}
-		}
+        if (list == null || list.size() == 0) {
+            System.out.println("현재 가입중이신 보험 상품이 없습니다.");
+            return;
+        } else {
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println((i + 1) + ". " + list.get(i).getInsuranceProduct().getBasicInsuranceInfo().getName());
+            }
+        }
+
 		System.out.println("처리할 신규 보험 번호를 입력하여 주십시오.");
 		System.out.print("입력 : ");
 		int index = MainTui.getInputInteger(objReader, list.size());
@@ -71,14 +67,18 @@ public class ContractInsuranceTui {
 
 		// 각 업무에 알맞은 visitor 할당
 		ContractInsuranceVisitor visitor = null;
-		switch (processIndex) {
-		case 1: // 보험료 납부방식 변경 요청
+
+		Terminator terminator = this.mainController.getTerminator();
+		switch(processIndex) {
+		case 1:	// 보험료 납부방식 변경 요청
 			visitor = new ChangePaymentTypeVisitor();
 			break;
 		case 2: // 보험료 납부
 			visitor = new PayPremiumVisitor();
 			break;
-		case 3: // 보험 중도해지
+
+		case 3:	// 보험 중도해지
+			visitor = new EarlyTerminateVisitor(terminator);
 			break;
 		case 4: // 보험금 청구
 			visitor = new InsuranceClaimVisitor();
@@ -86,6 +86,7 @@ public class ContractInsuranceTui {
 		}
 		visitor.visitContractInsurance(selectedInsurance, objReader);
 	}
+
 
 	// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ청구 리스트 확인 (손해조사) ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	public void printClaimList(BufferedReader objReader) throws IOException {
@@ -215,4 +216,5 @@ public class ContractInsuranceTui {
 		}
 
 	}
+
 }

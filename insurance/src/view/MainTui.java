@@ -17,14 +17,16 @@ public class MainTui {
 	private MainController mainController;
 
 	// views
-	private InsuranceTui insuranceTui = new InsuranceTui();
-	private ContractInsuranceTui contractInsuranceTui = new ContractInsuranceTui();
+		private InsuranceTui insuranceTui = new InsuranceTui();
+		private ContractInsuranceTui contractInsuranceTui = new ContractInsuranceTui();
+		private TerminateTui terminateTui = new TerminateTui();
 
-	public void associate(MainController mainController) {
-		this.mainController = mainController;
-		this.insuranceTui.associate(this.mainController);
-		this.contractInsuranceTui.associate(this.mainController);
-	}
+		public void associate(MainController mainController) {
+			this.mainController = mainController;
+			this.insuranceTui.associate(this.mainController);
+			this.contractInsuranceTui.associate(this.mainController);
+			this.terminateTui.associate(this.mainController);
+		}
 	
 	// --------------------------사용자 입력 정형화---------------------------------------
 	public static int getInputInteger(BufferedReader objReader, int scope) throws IOException {
@@ -173,7 +175,7 @@ public class MainTui {
 				contractInsuranceTui.printContractInsurance(objReader, customer);
 				break;
 			case "5":
-				insuranceTui.terminateInsurance(objReader);
+				terminateTui.terminateInsurance(objReader);
 				break;
 			case "6":
 				contractInsuranceTui.printClaimList(objReader);
