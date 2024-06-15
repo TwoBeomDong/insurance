@@ -38,7 +38,6 @@ public class C_ContractInsurance {
 	}
 
 	public Vector<ContractInsurance> getSelectedCustomer(Customer customer) {
-		// TODO Auto-generated method stub// 얘한테 파라미터로 Customer 를 받아. 함수가 !
 		// 메소드 안에다가도 Vector<InusranceProducst> list = new ---
 
 		Vector<ContractInsurance> customerInsuranceList = new Vector<>();

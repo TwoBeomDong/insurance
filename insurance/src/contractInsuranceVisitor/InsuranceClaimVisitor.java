@@ -40,7 +40,7 @@ public class InsuranceClaimVisitor implements ContractInsuranceVisitor{
 		System.out.println("기재사항에 대해 거짓이 없음에 동의하십니까? (yes/no): ");
 
 		if (MainTui.getBoolean(objReader)) {
-			if (contractInsurance.addRequestSupport(accidentDate, causer, place,
+			if (contractInsurance.addRequestClaim(accidentDate, causer, place,
 					detail, name, phoneNumber, address, damageAmount)) {
 				System.out
 						.println("입력하신 건에 대해 보험금 청구가 완료되었습니다. 청구 요청이 승인되고 영업일 기준 2-3일 이내에 등록된 계좌로 보험금이 지급됩니다.");

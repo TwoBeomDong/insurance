@@ -1,3 +1,4 @@
+
 package model.contract;
 
 
@@ -5,6 +6,7 @@ import java.time.LocalDate;
 
 import model.claim.RequestClaim;
 import model.claim.RequestClaimList;
+import model.claim.info.ClaimStatus;
 import model.insurance.InsuranceProduct;
 import model.insurancePremium.InsurancePremium;
 import model.insurancePremium.PaymentType;
@@ -95,22 +97,24 @@ public class ContractInsurance {
 	}
 
 	public RequestClaim getCurrentClaim() {
-		if(requestClaimList.getRequestSupportsList().isEmpty()) return null;
-		return requestClaimList.getRequestSupportsList().lastElement();
+		if(requestClaimList.getRequestClaimList().isEmpty()) return null;
+		return requestClaimList.getRequestClaimList().lastElement();
 	}
 	
-	public boolean addRequestSupport(String accidentDate, String causer, String place, String detail, String name, String phoneNumber, String address, String damageAmount) {
-		RequestClaim requestSupport = new RequestClaim();
-		requestSupport.setAccidentDate(accidentDate);
-		requestSupport.setCauser(causer);
-		requestSupport.setPlace(place);
-		requestSupport.setDetail(detail);
-		requestSupport.setName(name);
-		requestSupport.setPhoneNumber(phoneNumber);
-		requestSupport.setAddress(address);
-		requestSupport.setDamageAmount(accidentDate);
+	public boolean addRequestClaim(String accidentDate, String causer, String place, String detail, String name, String phoneNumber, String address, String damageAmount) {
+		RequestClaim requestClaim = new RequestClaim();
+		requestClaim.setAccidentDate(accidentDate);
+		requestClaim.setCauser(causer);
+		requestClaim.setPlace(place);
+		requestClaim.setDetail(detail);
+		requestClaim.setName(name);
+		requestClaim.setPhoneNumber(phoneNumber);
+		requestClaim.setAddress(address);
+		requestClaim.setDamageAmount(accidentDate);
+		//보험 상태를 requestClaim으로 변경
+		requestClaim.setClaimStatus(ClaimStatus.requestClaim);
 		
-		return this.requestClaimList.getRequestSupportsList().add(requestSupport);
+		return this.requestClaimList.getRequestClaimList().add(requestClaim);
 		//debug message
 		//System.out.println(requestSupportList.getRequestSupportsList().get(0).toString());
 	}

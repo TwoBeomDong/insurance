@@ -4,18 +4,18 @@ import java.util.Vector;
 
 public class RequestClaimList {
 
-	private Vector<RequestClaim> requestSupportsList;
+	private Vector<RequestClaim> requestClaimList;
 
 	public RequestClaimList() {
-		requestSupportsList = new Vector<RequestClaim>();
+		requestClaimList = new Vector<RequestClaim>();
 	}
 
-	public Vector<RequestClaim> getRequestSupportsList() {
-		return requestSupportsList;
+	public Vector<RequestClaim> getRequestClaimList() {
+		return requestClaimList;
 	}
 
-	public void setRequestSupportsList(Vector<RequestClaim> requestSupportsList) {
-		this.requestSupportsList = requestSupportsList;
+	public void setRequestClaimList(Vector<RequestClaim> requestSupportsList) {
+		this.requestClaimList = requestSupportsList;
 	}
 
 }
