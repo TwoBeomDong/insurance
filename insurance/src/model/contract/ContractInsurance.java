@@ -3,46 +3,44 @@ package model.contract;
 
 import java.time.LocalDate;
 
+import model.claim.RequestClaim;
+import model.claim.RequestClaimList;
 import model.insurance.InsuranceProduct;
+import model.insurancePremium.InsurancePremium;
+import model.insurancePremium.PaymentType;
 import model.user.Customer;
 
 
 public class ContractInsurance {
-	public enum PaymentType{
-		eBasicPayment("일반납부"),
-		eAutomaticTransfer("자동이체납부"),
-		;
-		private String title;
-		private PaymentType(String title) {
-			this.title = title;
-		}
-		public String getTitle() {
-			return this.title;
-		}
-	}
 	private LocalDate contractDate;
 	private Customer customer;
 	private LocalDate expireDate;
 	private InsuranceProduct insuranceProduct;
 	private String paymentBankAccount;
-	private PaymentType paymentType;
-	// 보험비 추가해야됨.
+	private RequestClaimList requestClaimList;
+	private InsurancePremium insurancePremium;
+	
+	public boolean equals(ContractInsurance contractInsurance) {
+		// 고객과 보험이 같으면 같다고 판단
+		return this.customer.equals(contractInsurance.customer.getId()) &&
+				this.insuranceProduct.equals(contractInsurance.insuranceProduct.getID());
+	}
 
 	public ContractInsurance(){
-
+		this.requestClaimList = new RequestClaimList();
+		this.insurancePremium = new InsurancePremium();
 	}
 	
 	public ContractInsurance(LocalDate contractDate, Customer customer, LocalDate expireDate,
 			InsuranceProduct insuranceProduct, String paymentBankAccount, PaymentType paymentType) {
+		this.requestClaimList = new RequestClaimList();
 		this.contractDate = contractDate;
 		this.customer = customer;
 		this.expireDate = expireDate;
 		this.insuranceProduct = insuranceProduct;
 		this.paymentBankAccount = paymentBankAccount;
-		this.paymentType = paymentType;
+		this.insurancePremium = new InsurancePremium(paymentType);
 	}
-
-
 
 	public LocalDate getContractDate() {
 		return contractDate;
@@ -85,12 +83,35 @@ public class ContractInsurance {
 	}
 
 	public PaymentType getPaymentType() {
-		return paymentType;
+		return this.insurancePremium.getPaymentType();
 	}
 
 	public void setPaymentType(PaymentType paymentType) {
-		this.paymentType = paymentType;
+		this.insurancePremium.setPaymentType(paymentType);
 	}
 	
+	public void doPayment() {
+		this.insurancePremium.doPayment();
+	}
 
+	public RequestClaim getCurrentClaim() {
+		if(requestClaimList.getRequestSupportsList().isEmpty()) return null;
+		return requestClaimList.getRequestSupportsList().lastElement();
+	}
+	
+	public boolean addRequestSupport(String accidentDate, String causer, String place, String detail, String name, String phoneNumber, String address, String damageAmount) {
+		RequestClaim requestSupport = new RequestClaim();
+		requestSupport.setAccidentDate(accidentDate);
+		requestSupport.setCauser(causer);
+		requestSupport.setPlace(place);
+		requestSupport.setDetail(detail);
+		requestSupport.setName(name);
+		requestSupport.setPhoneNumber(phoneNumber);
+		requestSupport.setAddress(address);
+		requestSupport.setDamageAmount(accidentDate);
+		
+		return this.requestClaimList.getRequestSupportsList().add(requestSupport);
+		//debug message
+		//System.out.println(requestSupportList.getRequestSupportsList().get(0).toString());
+	}
 }

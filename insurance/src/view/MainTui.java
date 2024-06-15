@@ -18,13 +18,45 @@ public class MainTui {
 
 	// views
 	private InsuranceTui insuranceTui = new InsuranceTui();
-	private ContractTui contractTui = new ContractTui();
-	private SupportTui supportTui = new SupportTui();
+	private ContractInsuranceTui contractInsuranceTui = new ContractInsuranceTui();
 
 	public void associate(MainController mainController) {
 		this.mainController = mainController;
 		this.insuranceTui.associate(this.mainController);
-		this.supportTui.associate(this.mainController);
+		this.contractInsuranceTui.associate(this.mainController);
+	}
+	
+	// --------------------------사용자 입력 정형화---------------------------------------
+	public static int getInputInteger(BufferedReader objReader, int scope) throws IOException {
+		int retVal;
+		while (true) {
+			try {
+				retVal = Integer.parseInt(objReader.readLine().trim());
+				if (scope != SCOPE_NONE) {
+					if (0 >= retVal || scope < retVal) {
+						System.out.print("올바르지 않은 입력입니다. 다시 입력하세요: ");
+						continue;
+					}
+				}
+				return retVal;
+			} catch (NumberFormatException e) {
+				System.out.print("올바르지 않은 입력입니다. 다시 입력하세요: ");
+			}
+		}
+	}
+	public static boolean getBoolean(BufferedReader objReader) throws IOException {
+        String approvalInput;
+        while(true) {
+        	approvalInput = objReader.readLine();
+            if ("yes".equalsIgnoreCase(approvalInput)) {
+                return true;
+            }else if("no".equalsIgnoreCase(approvalInput)) {
+
+                return false;
+            }else {
+            	System.out.print("올바르지 않은 입력입니다. 다시 입력하세요 : ");
+            }
+        }
 	}
 
 	
@@ -73,13 +105,13 @@ public class MainTui {
 		String name = objReader.readLine().trim();
 
 		System.out.println("나이를 입력하세요. 예: (25)");
-		int age = InsuranceTui.getInputInteger(objReader, 150);
+		int age = MainTui.getInputInteger(objReader, 150);
 
 		System.out.println("성별을 선택하세요.");
 		for(int i = 0; i< eSex.values().length; i++) {
 			System.out.println(i+1+" : "+eSex.values()[i].getTitle());
 		}
-		eSex sex = eSex.values()[InsuranceTui.getInputInteger(objReader, eSex.values().length)-1];
+		eSex sex = eSex.values()[MainTui.getInputInteger(objReader, eSex.values().length)-1];
 
 		System.out.println("계좌 정보를 입력하세요. 예: 123456");
 		String paymentBankAccount = objReader.readLine().trim();
@@ -138,7 +170,7 @@ public class MainTui {
 				insuranceTui.registerInsurance(objReader);
 				break;
 			case "4":
-				supportTui.printSupport(objReader, this.customer);
+				contractInsuranceTui.printContractInsurance(objReader, customer);
 				break;
 			case "5":
 				insuranceTui.terminateInsurance(objReader);
@@ -152,7 +184,7 @@ public class MainTui {
 				System.out.println("메뉴를 다시 보고싶다면 menu를 입력하세요.");
 				failNum = 0;
 			}
-			System.out.print("menu를 선택하세요. (종료하려면 x를 입력합니다.): ");
+			System.out.print("menu를 선택하세요. (종료하려면 x를, 메뉴를 다시 보고싶으면 menu를 입력합니다.): ");
 			sChoice = objReader.readLine().trim();
 		}
 		System.out.println("보험사 시스템을 종료합니다.");
@@ -166,7 +198,7 @@ public class MainTui {
 		System.out.println("2. 신규 보험 목록");
 		System.out.println("-----고객-----");
 		System.out.println("3. 신규 보험 가입");
-		System.out.println("4. 보험금 청구");
+		System.out.println("4. 가입중인 보험 확인");
 		System.out.println("-----계약 관리 부서 관리자-----");
 		System.out.println("5. 해지 보험 목록");
 	}

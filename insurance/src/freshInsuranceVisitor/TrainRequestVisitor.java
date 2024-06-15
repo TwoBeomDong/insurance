@@ -8,15 +8,15 @@ import model.insurance.InsuranceProduct;
 import model.insurance.info.InsuranceStatus;
 import model.insurance.info.StatusChangeInfo;
 import model.user.User;
-import view.InsuranceTui;
+import view.MainTui;
 
 public class TrainRequestVisitor implements FreshInsuranceVisitor{
 
 	@Override
-	public void visitInsuranceApprovalProcess(User user, InsuranceProduct insurance, C_InsuranceProduct insuranceList,
+	public void visitFreshInsurance(User user, InsuranceProduct insurance, C_InsuranceProduct insuranceList,
 			BufferedReader objReader) throws IOException {
 		System.out.println("해당 보험을 교육 의뢰 하시겠습니까? (yes / no)");
-		boolean isRequest = InsuranceTui.getBoolean(objReader);
+		boolean isRequest = MainTui.getBoolean(objReader);
 		if(isRequest) {
 			StatusChangeInfo info = new StatusChangeInfo();
 			info.setPersonInCharge(user);

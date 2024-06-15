@@ -13,7 +13,6 @@ public enum Message {
 	Standard_rate_decide_complete("요율이 정상적으로 확정되었습니다."),
 	Standard_rate_decide_failed("해당 보험은 이미 요율이 확정되었습니다."),
 	Product_approval_paper_set_complete("상품 인가 품의서 작성이 완료되었습니다. 금융감독원으로 상품이 인계됩니다."),
-	test("이걸 어떻게 해야하이"),
 	;
 		
 	private final String message;

@@ -12,11 +12,12 @@ import model.insurance.info.TrainMatter;
 import model.insurance.info.TrainPlan;
 import model.user.User;
 import view.InsuranceTui;
+import view.MainTui;
 
 public class TrainApprovalVisitor implements FreshInsuranceVisitor {
 
 	@Override
-	public void visitInsuranceApprovalProcess(User user, InsuranceProduct insurance, C_InsuranceProduct insuranceList,
+	public void visitFreshInsurance(User user, InsuranceProduct insurance, C_InsuranceProduct insuranceList,
 			BufferedReader objReader) throws IOException {
         StatusChangeInfo statusChangeInfo = new StatusChangeInfo();
         statusChangeInfo.setPersonInCharge(user);
@@ -25,7 +26,7 @@ public class TrainApprovalVisitor implements FreshInsuranceVisitor {
         System.out.println(basicInfo);
         System.out.print("해당 보험에 대한 교육을 승인하시겠습니까? (yes / no): ");
         
-        if(!InsuranceTui.getBoolean(objReader)) {
+        if(!MainTui.getBoolean(objReader)) {
         	System.out.print("승인 보류 사유를 입력하세요: ");
         	String reason = objReader.readLine();
         	statusChangeInfo.setChangeReason(reason);
@@ -40,11 +41,11 @@ public class TrainApprovalVisitor implements FreshInsuranceVisitor {
         System.out.println("----- 교육 재반 입력 ------");
         TrainMatter trainMatter = new TrainMatter();
         System.out.print("예상 마감 연도: ");
-        int year = InsuranceTui.getInputInteger(objReader, InsuranceTui.SCOPE_NONE);
+        int year = MainTui.getInputInteger(objReader, InsuranceTui.SCOPE_NONE);
         System.out.print("예상 마감월 : ");
-        int month = InsuranceTui.getInputInteger(objReader, 12);
+        int month = MainTui.getInputInteger(objReader, 12);
         System.out.print("예상 마감일 : ");
-        int day = InsuranceTui.getInputInteger(objReader, 31);
+        int day = MainTui.getInputInteger(objReader, 31);
         trainMatter.setEstimatedClosingDate(LocalDate.of(year, month, day));
 //        insurance.set
         System.out.print("교육 장소: ");
@@ -59,7 +60,7 @@ public class TrainApprovalVisitor implements FreshInsuranceVisitor {
         System.out.print("교육 계획: ");
         trainPlan.setPlan(objReader.readLine());
         System.out.print("교육 예산: ");
-        trainPlan.setBudget(InsuranceTui.getInputInteger(objReader, InsuranceTui.SCOPE_NONE));
+        trainPlan.setBudget(MainTui.getInputInteger(objReader, InsuranceTui.SCOPE_NONE));
         insurance.setTrainPlan(trainPlan);
         
         System.out.println("교육 요청 승인이 완료되었습니다.");

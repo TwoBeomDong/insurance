@@ -2,10 +2,12 @@ package controller;
 
 import java.util.Vector;
 
+import model.claim.RequestClaim;
+import model.claim.info.ClaimStatus;
 import model.contract.ContractInsurance;
-import model.contract.ContractInsurance.PaymentType;
 import model.contract.ContractInsuranceList;
 import model.insurance.InsuranceProduct;
+import model.insurancePremium.PaymentType;
 import model.user.Customer;
 
 public class C_ContractInsurance {
@@ -48,5 +50,22 @@ public class C_ContractInsurance {
 			}
 		}
 		return customerInsuranceList;
+	}
+	
+	public Vector<String> getContractInsuranceProcessList(ContractInsurance contractInsurance){
+		// output	: 특정 보험에서 처리할 수 있는 일 리스트	
+		//ex_보험 관리자 승인 / 보험 교육 승인
+		ContractInsurance insurance = this.contractInsuranceList.getContractInsurance(contractInsurance);
+		if(insurance == null) return null;
+		RequestClaim claim = insurance.getCurrentClaim();
+		Vector<String> retVector = new Vector<>();
+		retVector.add("보험금 납부방식 변경 요청");
+		retVector.add("보험료 납부");
+		retVector.add("보험 중도해지");
+		if(claim == null || claim.getClaimStatus() == ClaimStatus.insuranceProvideComplete) {
+			// 이전 청구가 종결됐거나 청구한 내역이 없는 경우
+			retVector.add("보험금 청구");
+		}
+		return retVector;
 	}
 }

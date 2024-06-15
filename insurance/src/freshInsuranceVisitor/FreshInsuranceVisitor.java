@@ -8,5 +8,5 @@ import model.insurance.InsuranceProduct;
 import model.user.User;
 
 public interface FreshInsuranceVisitor {
-	public void visitInsuranceApprovalProcess(User user, InsuranceProduct insurance, C_InsuranceProduct insuranceList, BufferedReader objReader) throws IOException;
+	public void visitFreshInsurance(User user, InsuranceProduct insurance, C_InsuranceProduct insuranceList, BufferedReader objReader) throws IOException;
 }

@@ -8,7 +8,7 @@ import model.insurance.InsuranceProduct;
 import model.insurance.info.InsuranceStatus;
 import model.insurance.info.StatusChangeInfo;
 import model.user.User;
-import view.InsuranceTui;
+import view.MainTui;
 
 public class AdminApprovalVisitor implements FreshInsuranceVisitor {
 
@@ -17,7 +17,7 @@ public class AdminApprovalVisitor implements FreshInsuranceVisitor {
     	String basicInfo = insuranceProductController.getFreshInsurance(insuranceId).getBasicInsuranceInfo().toString();
         System.out.println(basicInfo);
         System.out.println("기본보험 정보를 승인하시겠습니까? (yes/no)");
-        boolean approvalInput = InsuranceTui.getBoolean(objReader);
+        boolean approvalInput = MainTui.getBoolean(objReader);
         if(approvalInput) {
         	insuranceProductController.getFreshInsurance(insuranceId).getBasicInsuranceInfo().approval();
             System.out.println(insuranceProductController.approvalBasicInsuranceInfo(user, insuranceId, true));
@@ -29,7 +29,7 @@ public class AdminApprovalVisitor implements FreshInsuranceVisitor {
         String paperFormInfo = insuranceProductController.getMemberPaperForm(insuranceId);
         System.out.println(paperFormInfo);
         System.out.println("기초서류양식을 승인하시겠습니까? (yes/no)");
-        boolean approvalInput = InsuranceTui.getBoolean(objReader);
+        boolean approvalInput = MainTui.getBoolean(objReader);
         if(approvalInput) { System.out.println(insuranceProductController.approvalMemberPaperForm(user, insuranceId, true));
         }else {System.out.println(insuranceProductController.approvalMemberPaperForm(user, insuranceId, false));}
         return approvalInput;
@@ -58,7 +58,7 @@ public class AdminApprovalVisitor implements FreshInsuranceVisitor {
     }
 
 	@Override
-	public void visitInsuranceApprovalProcess(User user,InsuranceProduct insurance, C_InsuranceProduct insuranceList, BufferedReader objReader) throws IOException {
+	public void visitFreshInsurance(User user,InsuranceProduct insurance, C_InsuranceProduct insuranceList, BufferedReader objReader) throws IOException {
 
         try {
         	int id = insurance.getID();

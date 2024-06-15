@@ -1,13 +1,12 @@
 package controller;
 
-import model.contract.ContractInsurance.PaymentType;
 import model.contract.ContractInsuranceList;
 import model.insurance.InsuranceProduct;
 import model.insurance.InsuranceProductList;
 import model.insurance.info.BasicInsuranceInfo;
 import model.insurance.info.InsuranceType;
 import model.insurance.info.TermPeriod;
-import model.support.RequestSupportList;
+import model.insurancePremium.PaymentType;
 import model.terminate.TerminateInsuranceList;
 import model.user.Customer;
 import model.user.CustomerList;
@@ -23,7 +22,6 @@ public class MainController {
 	private ContractInsuranceList contractInsuranceList;
 	private EmployeeList employeeList;
 	private InsuranceProductList insuranceProductList;
-	private RequestSupportList requestSupportList;
 	private TerminateInsuranceList terminateInsuranceList; // 추가
 	
 
@@ -35,7 +33,6 @@ public class MainController {
 	private C_ContractInsurance contractInsuranceController;
 	private C_Employee employeeController;
 	private C_InsuranceProduct insuranceProductController;
-	private C_Support requestSupportController;
 	private Terminator terminator; // 추가
 
 	public MainController() {
@@ -47,14 +44,11 @@ public class MainController {
 		
 		this.terminateInsuranceList = new TerminateInsuranceList(); // 추가
 		this.terminator = new Terminator(contractInsuranceList, terminateInsuranceList); // 추가
-		
-		this.requestSupportList = new RequestSupportList();
 
 		this.customerController = new C_Customer(customerList);
 		this.contractInsuranceController = new C_ContractInsurance(contractInsuranceList);
 		this.employeeController = new C_Employee(employeeList);
 		this.insuranceProductController = new C_InsuranceProduct(insuranceProductList);
-		this.requestSupportController = new C_Support(requestSupportList);
 		
 		
 		
@@ -112,14 +106,6 @@ public class MainController {
 
 	public void setInsuranceProductController(C_InsuranceProduct insuranceProductController) {
 		this.insuranceProductController = insuranceProductController;
-	}
-
-	public C_Support getRequestSupportController() {
-		return requestSupportController;
-	}
-
-	public void setRequestSupportController(C_Support requestSupportController) {
-		this.requestSupportController = requestSupportController;
 	}
 
 	public TerminateInsuranceList getTerminateInsuranceList() {

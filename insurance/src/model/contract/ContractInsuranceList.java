@@ -30,4 +30,12 @@ public class ContractInsuranceList {
 		
 		return retList;
 	}
+	public ContractInsurance getContractInsurance(ContractInsurance contractInsurance) {
+		for(ContractInsurance c : this.contractInsuranceList) {
+			if(contractInsurance.equals(c)) {
+				return c;
+			}
+		}
+		return null;
+	}
 }

@@ -1,10 +1,9 @@
-package model.support;
+package model.claim;
 
+import model.claim.info.ClaimStatus;
 import model.contract.ContractInsurance;
-import model.insurance.InsuranceProduct;
-import model.user.Customer;
 
-public class RequestSupport {
+public class RequestClaim {
 	
 	private String accidentDate;
 	private String causer;
@@ -14,14 +13,15 @@ public class RequestSupport {
 	private String phoneNumber;
 	private String address;
 	private String damageAmount;
+	private ClaimStatus claimStatus;
 	
 	//사고일시, 사고원인, 사고장소, 사고내용, 피해자 성명, 피해자 연락처 ,피해자 주소, 피해내역/품목
-	// cutomer
-	private Customer customer;
-	// insurance
-	private ContractInsurance contractInsurance;
 	
-
+	//constructor
+	public RequestClaim() {
+		this.claimStatus = null;
+	}
+	
 	public String getCauser() {
 		return causer;
 	}
@@ -64,26 +64,17 @@ public class RequestSupport {
 	public void setDamageAmount(String accidentObject) {
 		this.damageAmount = accidentObject;
 	}
-	public Customer getCustomer() {
-		return customer;
-	}
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
 	public String getAccidentDate() {
 		return accidentDate;
 	}
 	public void setAccidentDate(String accidentDate) {
 		this.accidentDate = accidentDate;
 	}
-	public ContractInsurance getContractInsurance() {
-		return contractInsurance;
+	public ClaimStatus getClaimStatus() {
+		return claimStatus;
 	}
-	public void setContractInsurance(ContractInsurance contractInsurance) {
-		this.contractInsurance = contractInsurance;
+	public void setClaimStatus(ClaimStatus claimStatus) {
+		this.claimStatus = claimStatus;
 	}
-	
-	
-	
 
 }

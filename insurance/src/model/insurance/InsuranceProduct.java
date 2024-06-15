@@ -19,13 +19,20 @@ public class InsuranceProduct {
 		}
 	}
 
+	//attribute
+	private InsuranceStatus currentStatus;
+
+	// 등록 관련 field
 	private BasicInsuranceInfo basicInsuranceInfo;
 	private MemberPaperForm memberPaperForm;
 	private Vector<StatusChangeInfo> statusChangeList = new Vector<StatusChangeInfo>();
-	private InsuranceStatus currentStatus;
+
+	// 승인 관련 field
 	private ProductApprovalPaper productApprovalPaper;
 	private int insuranceID;
 	private StandardRate standardRate;
+	
+	// 교육 관련 field
 	private TrainMatter trainMatter;
 	private TrainPlan trainPlan;
 	private String courseBookLink;

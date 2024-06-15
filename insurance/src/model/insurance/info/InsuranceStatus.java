@@ -16,8 +16,6 @@ public enum InsuranceStatus {
 	trainRequest("교육 의뢰"),
 	trainProgress("교육 진행"),
 	trainWait("교육 대기"),
-	//ㅡㅡㅡㅡ청구 
-	requestSupport("보험금 청구");
 	;
 	private String name;
 	private InsuranceStatus(String name) {
