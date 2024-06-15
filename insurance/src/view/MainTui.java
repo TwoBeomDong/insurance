@@ -19,13 +19,11 @@ public class MainTui {
 	// views
 	private InsuranceTui insuranceTui = new InsuranceTui();
 	private ContractInsuranceTui contractInsuranceTui = new ContractInsuranceTui();
-	private InsuranceRefundTui insuranceRefundTui = new InsuranceRefundTui();
 
 	public void associate(MainController mainController) {
 		this.mainController = mainController;
 		this.insuranceTui.associate(this.mainController);
 		this.contractInsuranceTui.associate(this.mainController);
-		this.insuranceRefundTui.associate(this.mainController);
 	}
 	
 	// --------------------------사용자 입력 정형화---------------------------------------
@@ -176,8 +174,16 @@ public class MainTui {
 				break;
 			case "5":
 				insuranceTui.terminateInsurance(objReader);
+				break;
 			case "6":
-				insuranceRefundTui.printClaimList(objReader);	
+				contractInsuranceTui.printClaimList(objReader);
+				break;
+			case "7":
+				contractInsuranceTui.printStandByClaim(objReader);
+				break;
+			case "8":
+				contractInsuranceTui.printCompensationPayment(objReader);
+				break;
 			case "menu":
 				this.printMenu();
 			default:
@@ -207,6 +213,8 @@ public class MainTui {
 		System.out.println("5. 해지 보험 목록");
 		System.out.println("ㅡㅡㅡㅡㅡ보상운용부서ㅡㅡㅡㅡㅡ");
 		System.out.println("6. 보험금 청구목록 확인");
+		System.out.println("7. 손해사정 대기목록 확인");
+		System.out.println("8. 보험금 지급");
 	}
 
 }

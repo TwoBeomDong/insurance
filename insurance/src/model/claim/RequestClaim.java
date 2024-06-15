@@ -13,13 +13,15 @@ public class RequestClaim {
 	private String phoneNumber;
 	private String address;
 	private String damageAmount;
+	private int compensationAmount;
+	
 	private ClaimStatus claimStatus;
+	
 	
 	//사고일시, 사고원인, 사고장소, 사고내용, 피해자 성명, 피해자 연락처 ,피해자 주소, 피해내역/품목
 	
 	//constructor
 	public RequestClaim() {
-		this.claimStatus = null;
 	}
 	
 	public String getCauser() {
@@ -76,5 +78,27 @@ public class RequestClaim {
 	public void setClaimStatus(ClaimStatus claimStatus) {
 		this.claimStatus = claimStatus;
 	}
+	public int getCompensationAmount() {
+		return compensationAmount;
+	}
 
+	public void setCompensationAmount(int compensationAmount) {
+		this.compensationAmount = compensationAmount;
+	}
+
+
+	@Override
+	public String toString() {
+		return "---------------------------\n" +
+				"accidentDate: " + accidentDate + "\n" +
+				"causer: " + causer + "\n" +
+				"place: " + place + "\n" +
+				"detail: " + detail + "\n" +
+				"name: " + name + "\n" +
+				"phoneNumber: " + phoneNumber + "\n" +
+				"address: " + address + "\n" +
+				"damageAmount: " + damageAmount + "\n" +
+				"claimStatus: " + claimStatus.getName() + "\n" +
+				"------------------------------------";
+	}
 }

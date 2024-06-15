@@ -107,6 +107,10 @@ public class ContractInsurance {
 	public boolean doPayment() {
 		return this.insurancePremium.doPayment();
 	}
+	//클레임 리스트 다 받아오는얘
+	public RequestClaimList getRequestClaimList() {
+        return this.requestClaimList;
+    }
 
 	public RequestClaim getCurrentClaim() {
 		if(requestClaimList.getRequestClaimList().isEmpty()) return null;

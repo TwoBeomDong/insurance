@@ -24,7 +24,6 @@ public class MainController {
 	private EmployeeList employeeList;
 	private InsuranceProductList insuranceProductList;
 	private TerminateInsuranceList terminateInsuranceList; // 추가
-	private RequestClaimList requestClaimList;
 	
 
 	// ----------------------view--------------------
@@ -36,7 +35,6 @@ public class MainController {
 	private C_Employee employeeController;
 	private C_InsuranceProduct insuranceProductController;
 	private Terminator terminator; // 추가
-	private C_RequestClaim requestClaimController;
 
 	
 
@@ -49,13 +47,11 @@ public class MainController {
 		
 		this.terminateInsuranceList = new TerminateInsuranceList(); // 추가
 		this.terminator = new Terminator(contractInsuranceList, terminateInsuranceList); // 추가
-		this.requestClaimList = new RequestClaimList();
 
 		this.customerController = new C_Customer(customerList);
 		this.contractInsuranceController = new C_ContractInsurance(contractInsuranceList);
 		this.employeeController = new C_Employee(employeeList);
 		this.insuranceProductController = new C_InsuranceProduct(insuranceProductList);
-		this.requestClaimController = new C_RequestClaim(requestClaimList);
 		
 		
 		
@@ -65,6 +61,8 @@ public class MainController {
 		testUser.setId("test");
 		testUser.setPassword("1234");
 		testUser.addPaymentBankAccount("12345678");
+		
+		
 
 		BasicInsuranceInfo testBasicInsuranceInfo = new BasicInsuranceInfo("supportInsurance", InsuranceType.life,
 				TermPeriod.month_1);
@@ -117,12 +115,5 @@ public class MainController {
 
 	public TerminateInsuranceList getTerminateInsuranceList() {
 		return this.terminateInsuranceList;
-	}
-	public C_RequestClaim getRequestClaimController() {
-		return requestClaimController;
-	}
-
-	public void setRequestClaimController(C_RequestClaim requestClaimController) {
-		this.requestClaimController = requestClaimController;
 	}
 }

@@ -2,6 +2,7 @@ package model.contract;
 
 import java.util.Vector;
 
+import model.claim.RequestClaim;
 import model.insurance.InsuranceProduct;
 
 public class ContractInsuranceList {
@@ -38,4 +39,32 @@ public class ContractInsuranceList {
 		}
 		return null;
 	}
+	
+	 public Vector<RequestClaim> getCurrentClaim() {
+		 Vector<RequestClaim> currentClaims = new Vector<>();
+	        for (ContractInsurance contractInsurance : contractInsuranceList) {
+	            RequestClaim currentClaim = contractInsurance.getCurrentClaim();
+	            if (currentClaim != null) {
+	                currentClaims.add(currentClaim);
+	            }
+	        }
+	        return currentClaims;
+	    }
+	 
+	 public Vector<RequestClaim> getRequestClaimList() {
+	        Vector<RequestClaim> claims = new Vector<>();
+	        for (ContractInsurance contractInsurance : contractInsuranceList) {
+	            claims.addAll(contractInsurance.getRequestClaimList().getRequestClaimList());
+	        }
+	        return claims;
+	    }
+	 public ContractInsurance getContractInsuranceByRequestClaim(RequestClaim requestClaim) {
+	        for (ContractInsurance contractInsurance : this.contractInsuranceList) {
+	            if (contractInsurance.getRequestClaimList().getRequestClaimList().contains(requestClaim)) {
+	                return contractInsurance;
+	            }
+	        }
+	        return null;
+	    }
+	 
 }

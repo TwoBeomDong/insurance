@@ -67,4 +67,21 @@ public class C_ContractInsurance {
 		}
 		return retVector;
 	}
+	
+	public Vector<RequestClaim> getCurrentClaim(){
+		return contractInsuranceList.getCurrentClaim();
+	}
+	
+	public Vector<RequestClaim> getRequestClaimList() {
+        return contractInsuranceList.getRequestClaimList();
+    }
+//	public String getClaimProcessList() {
+//		RequestClaim request = this.contractInsuranceList.getCurrentClaims();
+//	}
+
+	public ContractInsurance getContractInsuranceByRequestClaim(RequestClaim requestClaim) {
+        return contractInsuranceList.getContractInsuranceByRequestClaim(requestClaim);
+    }
+	
+	
 }
