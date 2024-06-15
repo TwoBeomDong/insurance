@@ -111,4 +111,8 @@ public class MainController {
 	public TerminateInsuranceList getTerminateInsuranceList() {
 		return this.terminateInsuranceList;
 	}
+	
+	public Terminator getTerminator() {
+        return terminator;
+    }
 }

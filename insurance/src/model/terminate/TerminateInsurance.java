@@ -5,12 +5,18 @@ import java.time.LocalDate;
 public class TerminateInsurance {
     private int insuranceId;
     private String customerId;
-    private LocalDate terminationDate;
+    private LocalDate terminateDate;
+    private boolean isMature;
+    private LocalDate contractDate;
+    private int refundAmount;
 
-    public TerminateInsurance(int id, String customerId, LocalDate terminationDate, boolean ismature, LocalDate contractDate) {
-        this.insuranceId = id;
+    public TerminateInsurance(int insuranceId, String customerId, LocalDate terminationDate, boolean isMature, LocalDate contractDate, int refundAmount) {
+        this.insuranceId = insuranceId;
         this.customerId = customerId;
-        this.terminationDate = terminationDate;
+        this.terminateDate = terminationDate;
+        this.isMature = isMature;
+        this.contractDate = contractDate;
+        this.refundAmount = refundAmount;
     }
 
     public int getInsuranceId() {
@@ -30,10 +36,34 @@ public class TerminateInsurance {
     }
 
     public LocalDate getTerminationDate() {
-        return terminationDate;
+        return terminateDate;
     }
 
     public void setTerminationDate(LocalDate terminationDate) {
-        this.terminationDate = terminationDate;
+        this.terminateDate = terminationDate;
+    }
+    
+    public boolean isMature() {
+        return isMature;
+    }
+
+    public void setMature(boolean isMature) {
+        this.isMature = isMature;
+    }
+
+    public LocalDate getContractDate() {
+        return contractDate;
+    }
+
+    public void setContractDate(LocalDate contractDate) {
+        this.contractDate = contractDate;
+    }
+
+    public int getRefundAmount() {
+        return refundAmount;
+    }
+
+    public void setRefundAmount(int refundAmount) {
+        this.refundAmount = refundAmount;
     }
 }

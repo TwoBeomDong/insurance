@@ -1,15 +1,13 @@
 package model.contract;
 
-
 import java.time.LocalDate;
-
+import terminator.Terminator;
 import model.claim.RequestClaim;
 import model.claim.RequestClaimList;
 import model.insurance.InsuranceProduct;
 import model.insurancePremium.InsurancePremium;
 import model.insurancePremium.PaymentType;
 import model.user.Customer;
-
 
 public class ContractInsurance {
 	private LocalDate contractDate;
@@ -19,7 +17,7 @@ public class ContractInsurance {
 	private String paymentBankAccount;
 	private RequestClaimList requestClaimList;
 	private InsurancePremium insurancePremium;
-	
+
 	public boolean equals(ContractInsurance contractInsurance) {
 		// 고객과 보험이 같으면 같다고 판단
 		return this.customer.equals(contractInsurance.customer.getId()) &&
@@ -32,7 +30,7 @@ public class ContractInsurance {
 	}
 	
 	public ContractInsurance(LocalDate contractDate, Customer customer, LocalDate expireDate,
-			InsuranceProduct insuranceProduct, String paymentBankAccount, PaymentType paymentType) {
+			InsuranceProduct insuranceProduct, String paymentBankAccount, PaymentType paymentType, Terminator terminator) {
 		this.requestClaimList = new RequestClaimList();
 		this.contractDate = contractDate;
 		this.customer = customer;
@@ -111,7 +109,5 @@ public class ContractInsurance {
 		requestSupport.setDamageAmount(accidentDate);
 		
 		return this.requestClaimList.getRequestSupportsList().add(requestSupport);
-		//debug message
-		//System.out.println(requestSupportList.getRequestSupportsList().get(0).toString());
 	}
 }
