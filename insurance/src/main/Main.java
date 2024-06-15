@@ -5,7 +5,6 @@ import view.MainTui;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
-		System.out.println("debug");
 		// Insurance insurance = new Insurance();
 
 		// init Model
