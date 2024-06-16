@@ -13,9 +13,9 @@ public class RequestClaimList {
 	public Vector<RequestClaim> getRequestClaimList() {
 		return requestClaimList;
 	}
-
-	public void setRequestClaimList(Vector<RequestClaim> requestSupportsList) {
-		this.requestClaimList = requestSupportsList;
+	
+	public boolean addRequestClaim(RequestClaim requestClaim, String claimId) {
+		requestClaim.setClaimId(claimId+this.requestClaimList.size());
+		return this.requestClaimList.add(requestClaim);
 	}
-
 }

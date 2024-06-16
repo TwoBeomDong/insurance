@@ -52,7 +52,7 @@ public class C_ContractInsurance {
 	}
 	
 	public Vector<String> getContractInsuranceProcessList(ContractInsurance contractInsurance){
-		// output	: 특정 보험에서 처리할 수 있는 일 리스트	
+		// @output	: 가입 보험에서 처리할 수 있는 일 리스트
 		//ex_보험 관리자 승인 / 보험 교육 승인
 		ContractInsurance insurance = this.contractInsuranceList.getContractInsurance(contractInsurance);
 		if(insurance == null) return null;
@@ -61,7 +61,7 @@ public class C_ContractInsurance {
 		retVector.add("보험금 납부방식 변경 요청");
 		retVector.add("보험료 납부");
 		retVector.add("보험 중도해지");
-		if(claim == null || claim.getClaimStatus() == ClaimStatus.insuranceProvideComplete) {
+		if(claim == null || claim.getClaimStatus().ordinal() >= ClaimStatus.investigationDeny.ordinal()) {
 			// 이전 청구가 종결됐거나 청구한 내역이 없는 경우
 			retVector.add("보험금 청구");
 		}
@@ -78,10 +78,6 @@ public class C_ContractInsurance {
 //	public String getClaimProcessList() {
 //		RequestClaim request = this.contractInsuranceList.getCurrentClaims();
 //	}
-
-	public ContractInsurance getContractInsuranceByRequestClaim(RequestClaim requestClaim) {
-        return contractInsuranceList.getContractInsuranceByRequestClaim(requestClaim);
-    }
 	
 	
 }

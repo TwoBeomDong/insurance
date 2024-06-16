@@ -26,7 +26,7 @@ public class Terminator {
     private class TerminateTask extends TimerTask {
         public void run() {
             checkTerminateInsurance();
-            System.out.println("check timer"); // debugging
+//            System.out.println("check timer"); // debugging
         }
     }
     //해지 메소드
@@ -77,9 +77,9 @@ public class Terminator {
         
         while (iterator.hasNext()) {
             ContractInsurance contract = iterator.next();
-           // if (contract.getExpireDate().isBefore(now)) {
+            if (contract.getExpireDate().isBefore(now)) {  
                 terminate(contract, iterator, now, true);
-           // }
+            }
         }
     }
     //중도해지 메소드
