@@ -12,6 +12,7 @@ public enum ClaimStatus {
 	 * 사고접수 거부
 	 */
 	standByInsuranceProvide("보험금 지급 대기"),
+	investigationDeny("손해조사 부적합"),
 	insuranceProvideComplete("보험금 지급완료")
 	;
 	private String name;
@@ -21,4 +22,24 @@ public enum ClaimStatus {
 	public String getName() {
 		return this.name;
 	}
+	public static String getClaimProcessList(ClaimStatus status){
+		// @output	: 현재 청구 상태에서 할 수 있는 일
+		String retString = "";
+		switch(status){
+		case requestClaim:
+			retString += "손해조사 진행";
+			break;
+		case standByClaim:
+			retString += "손해사정 진행";
+			break;
+		case standByInsuranceProvide:
+			retString += "보험금 지급";
+			break;
+		default:
+			retString = null;
+			break;
+		}
+		return retString;
+	}
+
 }

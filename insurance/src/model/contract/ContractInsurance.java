@@ -114,8 +114,8 @@ public class ContractInsurance {
 		return requestClaimList.getRequestClaimList().lastElement();
 	}
 	
-	public boolean addRequestClaim(String accidentDate, String causer, String place, String detail, String name, String phoneNumber, String address, String damageAmount) {
-		RequestClaim requestClaim = new RequestClaim();
+	public boolean addRequestClaim(LocalDate accidentDate, String causer, String place, String detail, String name, String phoneNumber, String address, String damageAmount) {
+		RequestClaim requestClaim = new RequestClaim(this);
 		requestClaim.setAccidentDate(accidentDate);
 		requestClaim.setCauser(causer);
 		requestClaim.setPlace(place);
@@ -123,11 +123,11 @@ public class ContractInsurance {
 		requestClaim.setName(name);
 		requestClaim.setPhoneNumber(phoneNumber);
 		requestClaim.setAddress(address);
-		requestClaim.setDamageAmount(accidentDate);
+		requestClaim.setDamageAmount(damageAmount);
 		//보험 상태를 requestClaim으로 변경
 		requestClaim.setClaimStatus(ClaimStatus.requestClaim);
 		
-		return this.requestClaimList.getRequestClaimList().add(requestClaim);
+		return this.requestClaimList.addRequestClaim(requestClaim, this.customer.getId());
 		//debug message
 		//System.out.println(requestSupportList.getRequestSupportsList().get(0).toString());
 	}

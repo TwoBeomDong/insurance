@@ -178,13 +178,7 @@ public class MainTui {
 				terminateTui.terminateInsurance(objReader);
 				break;
 			case "6":
-				contractInsuranceTui.printClaimList(objReader);
-				break;
-			case "7":
-				contractInsuranceTui.printStandByClaim(objReader);
-				break;
-			case "8":
-				contractInsuranceTui.printCompensationPayment(objReader);
+				contractInsuranceTui.printClaimInsurance(objReader);
 				break;
 			case "menu":
 				this.printMenu();
@@ -215,8 +209,6 @@ public class MainTui {
 		System.out.println("5. 해지 보험 목록");
 		System.out.println("ㅡㅡㅡㅡㅡ보상운용부서ㅡㅡㅡㅡㅡ");
 		System.out.println("6. 보험금 청구목록 확인");
-		System.out.println("7. 손해사정 대기목록 확인");
-		System.out.println("8. 보험금 지급");
 	}
 
 }

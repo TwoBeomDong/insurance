@@ -13,6 +13,7 @@ import freshInsuranceVisitor.TrainApprovalVisitor;
 import freshInsuranceVisitor.TrainFinishVisitor;
 import freshInsuranceVisitor.TrainRequestVisitor;
 import model.insurance.InsuranceProduct;
+import model.insurance.info.InsuranceStatus;
 import model.insurance.info.InsuranceType;
 import model.insurance.info.TermPeriod;
 import model.insurancePremium.PaymentType;
@@ -148,8 +149,7 @@ public class InsuranceTui {
 		// 특정 보험에서 처리할 수 있는 일 리스트 출력
 		// ex_보험 관리자 승인 / 보험 교육 승인
 
-		String processStr = this.mainController.getInsuranceProductController()
-				.getFreshInsuranceProcessList(selectedInsurance.getID());
+		String processStr = InsuranceStatus.getFreshInsuranceProcessList(selectedInsurance.getCurrentStatus());
 		if (processStr == null) {
 			System.out.println("현재 해당 보험에 대한 처리 가능 목록이 없습니다. 초기 화면으로 돌아갑니다.");
 			return;
@@ -157,8 +157,7 @@ public class InsuranceTui {
 		System.out.println("처리 가능 업무: " + processStr);
 
 		System.out.print("해당 업무를 처리하시겠습니까? (yes / no) : ");
-		boolean isProcessSelect = MainTui.getBoolean(objReader);
-		if (!isProcessSelect) {
+		if (!MainTui.getBoolean(objReader)) {
 			System.out.println("업무 처리를 거부했습니다. 초기 화면으로 돌아갑니다.");
 			return;
 		}

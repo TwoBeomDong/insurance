@@ -1,13 +1,7 @@
 package controller;
 
-import model.claim.RequestClaimList;
 import model.contract.ContractInsuranceList;
-import model.insurance.InsuranceProduct;
 import model.insurance.InsuranceProductList;
-import model.insurance.info.BasicInsuranceInfo;
-import model.insurance.info.InsuranceType;
-import model.insurance.info.TermPeriod;
-import model.insurancePremium.PaymentType;
 import model.terminate.TerminateInsuranceList;
 import model.user.Customer;
 import model.user.CustomerList;
@@ -64,16 +58,16 @@ public class MainController {
 		
 		
 
-		BasicInsuranceInfo testBasicInsuranceInfo = new BasicInsuranceInfo("supportInsurance", InsuranceType.life,
-				TermPeriod.month_1);
-		InsuranceProduct testInsurance = new InsuranceProduct(testBasicInsuranceInfo, null, 123);
+//		BasicInsuranceInfo testBasicInsuranceInfo = new BasicInsuranceInfo("supportInsurance", InsuranceType.life,
+//				TermPeriod.month_1);
+//		InsuranceProduct testInsurance = new InsuranceProduct(testBasicInsuranceInfo, null, 123);
 		
 		// add customer test data
 		this.customerController.addCustomer("데모유저", 25, eSex.eMale, "123456789", "test", "1234");
 		
 		// add Contract Insurance test data
-		this.contractInsuranceController.AddContractInsurance(testInsurance, testUser, 12,
-				testUser.getPaymentBankAccount().get(0), PaymentType.eBasicPayment);
+//		this.contractInsuranceController.AddContractInsurance(testInsurance, testUser, 12,
+//				testUser.getPaymentBankAccount().get(0), PaymentType.eBasicPayment);
 
 	}
 

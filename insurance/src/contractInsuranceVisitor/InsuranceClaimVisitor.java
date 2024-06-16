@@ -2,6 +2,9 @@ package contractInsuranceVisitor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import model.contract.ContractInsurance;
 import view.MainTui;
@@ -12,8 +15,19 @@ public class InsuranceClaimVisitor implements ContractInsuranceVisitor{
 	public void visitContractInsurance(ContractInsurance contractInsurance, BufferedReader objReader) throws IOException {
 
 		System.out.println("청구를 위한 사고 경위서를 양식에 맞게 작성해주세요.");
-		System.out.println("1. 사고 일시를 입력하세요.  예: 240602");
-		String accidentDate = objReader.readLine().trim();
+		System.out.println("1. 사고 일시를 입력하세요.  예: 2024-06-17");
+//		String accidentDate = objReader.readLine().trim();
+		LocalDate accidentDate = null;
+		while(true) {
+	        try {
+	            String input = objReader.readLine().trim();
+	            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // 날짜 형식 지정
+	            accidentDate = LocalDate.parse(input, formatter);
+	            break;
+	        } catch (DateTimeParseException e) {
+	            System.out.println("잘못된 형식입니다. 다시 입력하세요.");
+	        }	
+		}
 
 		System.out.println("2. 사고 원인을 입력하세요.  예: 전방 부주의");
 		String causer = objReader.readLine().trim();
