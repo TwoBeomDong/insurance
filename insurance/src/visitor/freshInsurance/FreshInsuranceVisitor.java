@@ -1,4 +1,4 @@
-package freshInsuranceVisitor;
+package visitor.freshInsurance;
 
 import java.io.BufferedReader;
 import java.io.IOException;
