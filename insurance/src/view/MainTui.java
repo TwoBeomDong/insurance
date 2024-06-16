@@ -67,20 +67,17 @@ public class MainTui {
 	public void displayLogin() throws IOException {
 		BufferedReader objReader = new BufferedReader(new InputStreamReader(System.in));
 		// login & register
-		printFirstloginMenu();
-		String sLoginChoice = objReader.readLine().trim();
-		if (sLoginChoice.equals("1")) {
-			// login
+		System.out.println("환영합니다.");
+		System.out.println("저희 보험사 회원이신가요? (yes / no)");
+		if(MainTui.getBoolean(objReader)) {
 			this.customer = null;
 			do {
 				this.customer = printLogin(objReader);
 				if(this.customer == null) System.out.println("입력하신 아이디/비밀번호가 잘못되었습니다.");
 			} while (customer == null);
 			System.out.println("로그인 성공");
-			this.insuranceTui.login(customer);
-			displayMain(objReader);
-		} else if (sLoginChoice.equals("2")) {
-			// register
+			this.displayMain(objReader);
+		}else {
 			printRegisterMenu(objReader);
 		}
 	}
@@ -96,13 +93,8 @@ public class MainTui {
 		return null;
 	}
 
-	private void printFirstloginMenu() {
-		System.out.println("환영합니다.");
-		System.out.println("저희 보험사 회원이신가요?");
-		System.out.println("1. 예 2. 아니오");
-	}
-
 	private void printRegisterMenu(BufferedReader objReader) throws IOException {
+		System.out.println("회원가입을 진행합니다.");
 		System.out.println("이름을 입력하세요: ");
 		String name = objReader.readLine().trim();
 
