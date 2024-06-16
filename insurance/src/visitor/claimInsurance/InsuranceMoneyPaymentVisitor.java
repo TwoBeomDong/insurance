@@ -1,4 +1,4 @@
-package claimInsuranceVisitor;
+package visitor.claimInsurance;
 
 import java.io.BufferedReader;
 import java.io.IOException;

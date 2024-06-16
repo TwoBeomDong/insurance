@@ -7,11 +7,6 @@ import java.util.Map.Entry;
 import java.util.Vector;
 
 import controller.MainController;
-import freshInsuranceVisitor.AdminApprovalVisitor;
-import freshInsuranceVisitor.FreshInsuranceVisitor;
-import freshInsuranceVisitor.TrainApprovalVisitor;
-import freshInsuranceVisitor.TrainFinishVisitor;
-import freshInsuranceVisitor.TrainRequestVisitor;
 import model.insurance.InsuranceProduct;
 import model.insurance.info.InsuranceStatus;
 import model.insurance.info.InsuranceType;
@@ -19,6 +14,11 @@ import model.insurance.info.TermPeriod;
 import model.insurancePremium.PaymentType;
 import model.terminate.TerminateInsurance;
 import model.user.Customer;
+import visitor.freshInsurance.AdminApprovalVisitor;
+import visitor.freshInsurance.FreshInsuranceVisitor;
+import visitor.freshInsurance.TrainApprovalVisitor;
+import visitor.freshInsurance.TrainFinishVisitor;
+import visitor.freshInsurance.TrainRequestVisitor;
 
 public class InsuranceTui {
 	// attribute

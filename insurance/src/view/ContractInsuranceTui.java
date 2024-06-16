@@ -4,21 +4,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Vector;
 
-import claimInsuranceVisitor.AssessDamageVisitor;
-import claimInsuranceVisitor.ClaimApprovalVisitor;
-import claimInsuranceVisitor.ClaimInsuranceVisitor;
-import claimInsuranceVisitor.InsuranceMoneyPaymentVisitor;
-import contractInsuranceVisitor.ChangePaymentTypeVisitor;
-import contractInsuranceVisitor.ContractInsuranceVisitor;
-import contractInsuranceVisitor.EarlyTerminateVisitor;
-import contractInsuranceVisitor.InsuranceClaimVisitor;
-import contractInsuranceVisitor.PayPremiumVisitor;
 import controller.MainController;
 import model.claim.RequestClaim;
 import model.claim.info.ClaimStatus;
 import model.contract.ContractInsurance;
 import model.user.Customer;
 import terminator.Terminator;
+import visitor.claimInsurance.AssessDamageVisitor;
+import visitor.claimInsurance.ClaimApprovalVisitor;
+import visitor.claimInsurance.ClaimInsuranceVisitor;
+import visitor.claimInsurance.InsuranceMoneyPaymentVisitor;
+import visitor.contractInsurance.ChangePaymentTypeVisitor;
+import visitor.contractInsurance.ContractInsuranceVisitor;
+import visitor.contractInsurance.EarlyTerminateVisitor;
+import visitor.contractInsurance.InsuranceClaimVisitor;
+import visitor.contractInsurance.PayPremiumVisitor;
 
 public class ContractInsuranceTui {
 
