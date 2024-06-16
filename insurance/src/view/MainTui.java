@@ -75,6 +75,7 @@ public class MainTui {
 				this.customer = printLogin(objReader);
 				if(this.customer == null) System.out.println("입력하신 아이디/비밀번호가 잘못되었습니다.");
 			} while (customer == null);
+			this.insuranceTui.login(customer);
 			System.out.println("로그인 성공");
 			this.displayMain(objReader);
 		}else {
@@ -88,6 +89,7 @@ public class MainTui {
 		System.out.print("비밀번호를 입력하세요: ");
 		String password = objReader.readLine().trim();
 		if (this.mainController.getCustomerController().checkPassword(id, password)) {
+			System.out.println("enter");
 			return this.mainController.getCustomerController().getCustomer(id);
 		}
 		return null;
