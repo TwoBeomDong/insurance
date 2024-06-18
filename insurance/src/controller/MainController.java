@@ -107,7 +107,7 @@ public class MainController {
 		this.insuranceProductController = insuranceProductController;
 	}
 
-	public TerminateInsuranceList getTerminateInsuranceList() {
+	public TerminateInsuranceList getMainControllerTerminateInsuranceList() {
 		return this.terminateInsuranceList;
 	}
 	

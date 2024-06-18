@@ -15,8 +15,7 @@ public class TerminateTui {
 	}
 	// -------------------------보험 해지/환급(직원전용메뉴)----------------------------------
 	public void terminateInsurance(BufferedReader objReader) throws IOException {
-        Vector<TerminateInsurance> terminateList = this.mainController.getTerminateInsuranceList()
-                .getTerminateInsuranceList();
+        Vector<TerminateInsurance> terminateList = this.mainController.getMainControllerTerminateInsuranceList().getTerminateInsuranceList();
 
         if (terminateList.isEmpty()) {
             System.out.println("해지된 보험이 없습니다.");
@@ -52,9 +51,9 @@ public class TerminateTui {
             }
 
             if (selectedInsurance != null) {
-                // 환급금은 이미 설정된 값을 사용
+                // 데모에서 환급금은 미리 설정된 값을 사용
                 System.out.println("해지환급금 " + selectedInsurance.getRefundAmount() + "원을 지급했습니다.");
-                this.mainController.getTerminateInsuranceList().removeTerminateInsurance(selectedInsurance);
+                this.mainController.getMainControllerTerminateInsuranceList().removeTerminateInsurance(selectedInsurance);
             } else {
                 System.out.println("유효하지 않은 보험 ID입니다.");
             }

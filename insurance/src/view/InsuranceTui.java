@@ -302,7 +302,7 @@ public class InsuranceTui {
 
 	// -------------------------보험 해지/환급(직원전용메뉴)----------------------------------
 	public void terminateInsurance(BufferedReader objReader) {
-		Vector<TerminateInsurance> terminateList = this.mainController.getTerminateInsuranceList()
+		Vector<TerminateInsurance> terminateList = this.mainController.getMainControllerTerminateInsuranceList()
 				.getTerminateInsuranceList();
 
 		if (terminateList.isEmpty()) {
